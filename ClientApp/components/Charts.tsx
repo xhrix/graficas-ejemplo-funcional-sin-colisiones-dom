@@ -3,6 +3,7 @@ import {ChartA} from './Charts/ChartA';
 import {ChartB} from './Charts/ChartB';
 import {ChartC} from "./Charts/ChartC";
 import {ChartD} from "./Charts/ChartD";
+import {ChartE} from "./Charts/ChartE";
 
 interface Props {
     id?: number;
@@ -27,6 +28,9 @@ export class Charts extends React.Component<Props> {
                     </div>
                     <div className={`col-sm mt-4 xx-card ${single ? id == 4 ? 'xx-shown' : 'xx-hidden' : ''}`}>
                         <ChartD data={{title: 'Chart D'}}/>
+                    </div>
+                    <div className={`col-sm mt-4 xx-card ${single ? id == 5 ? 'xx-shown' : 'xx-hidden' : ''}`}>
+                        <ChartE data={{title: 'Chart E'}}/>
                     </div>
                 </div>
             </div>
