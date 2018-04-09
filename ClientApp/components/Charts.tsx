@@ -21,7 +21,7 @@ export class Charts extends React.Component<Props> {
                     <div className={`col-sm xx-card ${single ? id == 2 ? 'xx-shown' : 'xx-hidden' : ''}`}>
                         <ChartB data={{title: 'Chart B'}}/>
                     </div>
-                    <div className={`col-sm xx-card ${single ? id == 3 ? 'xx-shown' : 'xx-hidden' : ''}`}>
+                    <div className={`col-sm mt-4 xx-card ${single ? id == 3 ? 'xx-shown' : 'xx-hidden' : ''}`}>
                         <ChartC data={{title: 'Chart C'}}/>
                     </div>
                 </div>

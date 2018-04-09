@@ -141,7 +141,7 @@ export class ChartC extends React.Component<Props, {}> {
             <NavLink to={'/charts/3'}>
                 <h1 className="display-4">Graph {this.props.data.title}!</h1>
             </NavLink>
-            <p className="lead">Another one ({this.chartUid}).</p>
+            <p className="lead">Another one.</p>
             <div id={this.chartUid} style={{minWidth: '310px', maxWidth: '400px', height: '300px', margin: '0 auto'}}/>
         </div>;
     }

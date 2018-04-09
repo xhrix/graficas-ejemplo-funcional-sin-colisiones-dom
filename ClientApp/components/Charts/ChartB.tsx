@@ -83,7 +83,7 @@ export class ChartB extends React.Component<ChartBProps, {}> {
             <NavLink to={'/charts/2'}>
                 <h1 className="display-4">Graph {this.props.data.title}!</h1>
             </NavLink>
-            <p className="lead">Another graph ({this.chartUid}).</p>
+            <p className="lead">Another graph.</p>
             <div id={this.chartUid}
                  style={{minWidth: '310px', maxWidth: '400px', height: '400px', margin: '0 auto'}}/>
         </div>;
