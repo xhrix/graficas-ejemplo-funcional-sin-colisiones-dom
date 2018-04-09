@@ -5,5 +5,15 @@
 <div id="react-app">Loading...</div>
 
 @section scripts {
+    <script src="~/lib/highcharts/code/highcharts.js"></script>
+    <script src="~/lib/highcharts/code/modules/data.js"></script>
+    <script src="~/lib/highcharts/code/modules/series-label.js"></script>
+    <script src="~/lib/highcharts/code/modules/exporting.js"></script>
+
+    <!-- Additional files for the Highslide popup effect -->
+    <script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
+    <script src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
+
     <script src="~/dist/main.js" asp-append-version="true"></script>
 }

@@ -10,6 +10,12 @@
       "integrity": "sha512-2A0stT6b61DANLErAfSkeQ77N+A3FbR7ardUJUP3xm9f4W8qtG9ispBYDUX42Fl1EbR0rqSV3IWjbB6ew7hXRw==",
       "dev": true
     },
+    "@types/jquery": {
+      "version": "3.3.1",
+      "resolved": "https://registry.npmjs.org/@types/jquery/-/jquery-3.3.1.tgz",
+      "integrity": "sha512-N3h+rzN518yl2xKrW0o6KKdNmWZ+OwG6SoM5TBEQFF0tTv5wXPEsoOuYQ2Kt3/89XbcSZUJLdjiT/2c3BR/ApQ==",
+      "dev": true
+    },
     "@types/react": {
       "version": "15.0.35",
       "resolved": "https://registry.npmjs.org/@types/react/-/react-15.0.35.tgz",
@@ -3107,9 +3113,9 @@
       }
     },
     "jquery": {
-      "version": "3.2.1",
-      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz",
-      "integrity": "sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c=",
+      "version": "3.3.1",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.3.1.tgz",
+      "integrity": "sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==",
       "dev": true
     },
     "js-base64": {
