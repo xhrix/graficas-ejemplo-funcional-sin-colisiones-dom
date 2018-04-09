@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as $ from 'jquery';
+import * as uuid from 'uuid/v4';
 
 interface ChartAProps {
     data: {
@@ -9,13 +10,21 @@ interface ChartAProps {
 
 export class ChartA extends React.Component<ChartAProps, {}> {
 
+    private readonly chartUid: string;
+
+    constructor(props: ChartAProps) {
+        super(props);
+        this.chartUid = uuid();
+    };
+
     componentDidMount() {
+        const that = this;
         const Highcharts = (window as any).Highcharts;
         // Get the CSV and create the chart
         $.ajax({
             url: 'https://cdn.rawgit.com/highcharts/highcharts/v6.0.4/samples/data/analytics.csv',
             success: function (csv) {
-                Highcharts.chart('container', {
+                Highcharts.chart(that.chartUid, {
 
                     data: {
                         csv: csv.replace(/\n\n/g, '\n')
@@ -125,7 +134,7 @@ export class ChartA extends React.Component<ChartAProps, {}> {
                 <h1 className="display-4">Graph {this.props.data.title}!</h1>
                 <p className="lead">Data sample source A.</p>
                 <hr className="my-4"/>
-                <div id="container" style={{minWidth: '310px', height: '400px', margin: '0 auto'}}/>
+                <div id={this.chartUid} style={{minWidth: '310px', height: '400px', margin: '0 auto'}}/>
                 <hr className="my-4"/>
                 <p>It uses utility classes for typography and spacing to space content out within the larger
                     container.</p>
