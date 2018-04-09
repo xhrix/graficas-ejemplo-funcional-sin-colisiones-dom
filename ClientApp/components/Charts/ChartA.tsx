@@ -130,14 +130,12 @@ export class ChartA extends React.Component<ChartAProps, {}> {
     }
 
     public render() {
-        return <div className="col-sm">
-            <div className="jumbotron">
-                <NavLink to={'/charts/1'}>
-                    <h1 className="display-4">Graph {this.props.data.title}!</h1>
-                </NavLink>
-                <p className="lead">Data sample source A.</p>
-                <div id={this.chartUid} style={{minWidth: '310px', height: '400px', margin: '0 auto'}}/>
-            </div>
+        return <div className="jumbotron">
+            <NavLink to={'/charts/1'}>
+                <h1 className="display-4">Graph {this.props.data.title}!</h1>
+            </NavLink>
+            <p className="lead">Data sample source A ({this.chartUid}).</p>
+            <div id={this.chartUid} style={{minWidth: '310px', height: '400px', margin: '0 auto'}}/>
         </div>;
     }
 }
