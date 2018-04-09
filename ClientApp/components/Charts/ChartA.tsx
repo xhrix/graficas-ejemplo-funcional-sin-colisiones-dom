@@ -133,11 +133,7 @@ export class ChartA extends React.Component<ChartAProps, {}> {
             <div className="jumbotron">
                 <h1 className="display-4">Graph {this.props.data.title}!</h1>
                 <p className="lead">Data sample source A.</p>
-                <hr className="my-4"/>
                 <div id={this.chartUid} style={{minWidth: '310px', height: '400px', margin: '0 auto'}}/>
-                <hr className="my-4"/>
-                <p>It uses utility classes for typography and spacing to space content out within the larger
-                    container.</p>
             </div>
         </div>;
     }
