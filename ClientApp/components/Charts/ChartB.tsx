@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as uuid from 'uuid/v4';
+import {NavLink} from "react-router-dom";
 
 interface ChartBProps {
     data: {
@@ -80,7 +81,9 @@ export class ChartB extends React.Component<ChartBProps, {}> {
     public render() {
         return <div className="col-sm">
             <div className="jumbotron">
-                <h1 className="display-4">Graph {this.props.data.title}!</h1>
+                <NavLink to={'/charts/2'}>
+                    <h1 className="display-4">Graph {this.props.data.title}!</h1>
+                </NavLink>
                 <p className="lead">Another graph.</p>
                 <div id={this.chartUid}
                      style={{minWidth: '310px', maxWidth: '400px', height: '400px', margin: '0 auto'}}/>
