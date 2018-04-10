@@ -71,6 +71,15 @@
         "@types/react-router": "4.0.23"
       }
     },
+    "@types/react-sortable-hoc": {
+      "version": "0.6.3",
+      "resolved": "https://registry.npmjs.org/@types/react-sortable-hoc/-/react-sortable-hoc-0.6.3.tgz",
+      "integrity": "sha512-o5sUaL30Dhv/pLp7Ko/2cQkN/ZXoU1DTFSCw5D0DtX0aT+QvP2waC3Q12Ww6CwFMLD95FHw1sHn968hyEmP4hQ==",
+      "dev": true,
+      "requires": {
+        "@types/react": "16.3.6"
+      }
+    },
     "@types/uuid": {
       "version": "3.4.3",
       "resolved": "https://registry.npmjs.org/@types/uuid/-/uuid-3.4.3.tgz",
@@ -4680,6 +4689,18 @@
         "prop-types": "15.5.10",
         "react-router": "4.2.0",
         "warning": "3.0.0"
+      }
+    },
+    "react-sortable-hoc": {
+      "version": "0.6.8",
+      "resolved": "https://registry.npmjs.org/react-sortable-hoc/-/react-sortable-hoc-0.6.8.tgz",
+      "integrity": "sha512-sUUAtNdV84AKZ2o+F5lVOOFWcyWG6aGDkNFgHoieB1zFLeWLWENkix06asPS4/GhigfuRh06aZix1j3Qx8+NSQ==",
+      "dev": true,
+      "requires": {
+        "babel-runtime": "6.23.0",
+        "invariant": "2.2.2",
+        "lodash": "4.17.4",
+        "prop-types": "15.5.10"
       }
     },
     "read-pkg": {
