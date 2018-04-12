@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {arrayMove, SortableContainer, SortableElement} from 'react-sortable-hoc';
+import * as styles from './Charts.scss';
 
 const SortableItem = SortableElement<{ value: string }>(({value}) => <li>{value}</li>);
 
