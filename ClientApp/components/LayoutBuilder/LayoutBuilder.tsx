@@ -1,16 +1,7 @@
 import * as React from 'react';
 import {arrayMove, SortableContainer, SortableElement} from 'react-sortable-hoc';
 import * as styles from './LayoutBuilder.scss';
-
-
-const urls = [
-    'https://picsum.photos/200/300/?image=350',
-    'https://picsum.photos/200/300/?image=90',
-    'https://picsum.photos/200/300/?image=662',
-    'https://picsum.photos/200/300/?image=736',
-    'https://picsum.photos/200/300/?image=666',
-    'https://picsum.photos/200/300/?image=182',
-];
+import ChartsService from "../../services/ChartsService";
 
 const SortableItem = SortableElement<{ value: string }>(({value}) => (
     <li className={styles.gridItem}>
@@ -30,8 +21,14 @@ const SortableList = SortableContainer<{ items: string[] }>(({items}) => {
 });
 
 class SortableComponent extends React.Component {
+    async componentDidMount() {
+        this.setState({
+            items: [...await ChartsService.getAvailableCharts()]
+        });
+    }
+
     state = {
-        items: [...urls],
+        items: [],
     };
 
     onSortEnd = ({oldIndex, newIndex}: any) => {
