@@ -2,6 +2,7 @@ import * as React from 'react';
 import {arrayMove, SortableContainer, SortableElement} from 'react-sortable-hoc';
 import * as styles from './LayoutBuilder.scss';
 import ChartsService from "../../services/ChartsService";
+import AvailableItems from "./AvailableItems/AvailableItems";
 
 const SortableItem = SortableElement<{ value: string }>(({value}) => (
     <li className={styles.gridItem}>
@@ -51,6 +52,7 @@ export default class LayoutBuilder extends React.Component<Props> {
     public render() {
         return (
             <div className={styles.container}>
+                <AvailableItems/>
                 <SortableComponent/>
             </div>
         );
