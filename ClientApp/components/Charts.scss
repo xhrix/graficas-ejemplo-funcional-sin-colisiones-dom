@@ -1,3 +1,27 @@
 .container {
-    x: x;
+  color: initial;
 }
+
+.grid {
+  color: initial;
+}
+
+.grid-item {
+  height: 200px;
+  margin: 6px;
+  display: inline-flex;
+  box-shadow: -1px -1px 2px 1px rgba(103, 103, 103, 0.46);
+  > iframe {
+    border: none;
+    height: 100%;
+    width: 100%;
+  }
+  .handle {
+    color: initial;
+    background: #757575;
+    width: 50px;
+    height: 100%;
+    display: inline-block;
+  }
+}
+

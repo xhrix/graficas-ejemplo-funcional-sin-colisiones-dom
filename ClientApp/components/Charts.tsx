@@ -2,11 +2,26 @@ import * as React from 'react';
 import {arrayMove, SortableContainer, SortableElement} from 'react-sortable-hoc';
 import * as styles from './Charts.scss';
 
-const SortableItem = SortableElement<{ value: string }>(({value}) => <li>{value}</li>);
+
+const urls = [
+    'https://picsum.photos/200/300/?image=350',
+    'https://picsum.photos/200/300/?image=90',
+    'https://picsum.photos/200/300/?image=662',
+    'https://picsum.photos/200/300/?image=736',
+    'https://picsum.photos/200/300/?image=666',
+    'https://picsum.photos/200/300/?image=182',
+];
+
+const SortableItem = SortableElement<{ value: string }>(({value}) => (
+    <li className={styles.gridItem}>
+        <span className={styles.handle}/>
+        <iframe src={value}/>
+    </li>
+));
 
 const SortableList = SortableContainer<{ items: string[] }>(({items}) => {
     return (
-        <ul>
+        <ul className={styles.grid}>
             {(items).map((value, index) => (
                 <SortableItem key={`item-${index}`} index={index} value={value}/>
             ))}
@@ -16,7 +31,7 @@ const SortableList = SortableContainer<{ items: string[] }>(({items}) => {
 
 class SortableComponent extends React.Component {
     state = {
-        items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'],
+        items: [...urls],
     };
 
     onSortEnd = ({oldIndex, newIndex}: any) => {
@@ -37,6 +52,10 @@ interface Props {
 
 export class Charts extends React.Component<Props> {
     public render() {
-        return <SortableComponent/>;
+        return (
+            <div className={styles.container}>
+                <SortableComponent/>
+            </div>
+        );
     }
 }
