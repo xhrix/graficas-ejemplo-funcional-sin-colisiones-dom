@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {arrayMove, SortableContainer, SortableElement} from 'react-sortable-hoc';
 import * as styles from './LayoutBuilder.scss';
-import ChartsService from "../../services/ChartsService";
 import AvailableItems from "./AvailableItems/AvailableItems";
+import LayoutBuilderService from "../../services/LayoutBuilderService";
+import {observer} from "mobx-react";
 
 const SortableItem = SortableElement<{ value: string }>(({value}) => (
     <li className={styles.gridItem}>
@@ -21,25 +22,18 @@ const SortableList = SortableContainer<{ items: string[] }>(({items}) => {
     );
 });
 
+@observer
 class SortableComponent extends React.Component {
-    async componentDidMount() {
-        this.setState({
-            items: [...await ChartsService.getAvailableCharts()]
-        });
-    }
 
-    state = {
-        items: [],
-    };
+    private readonly layoutBuilderService = LayoutBuilderService.Instance;
 
     onSortEnd = ({oldIndex, newIndex}: any) => {
-        this.setState({
-            items: arrayMove(this.state.items, oldIndex, newIndex),
-        });
+        this.layoutBuilderService.selectedCharts = arrayMove(this.layoutBuilderService.selectedCharts, oldIndex, newIndex);
     };
 
     render() {
-        return <SortableList axis={'xy'} items={this.state.items} onSortEnd={this.onSortEnd}/>;
+        console.log("Rendering laou");
+        return <SortableList axis={'xy'} items={this.layoutBuilderService.selectedCharts} onSortEnd={this.onSortEnd}/>;
     }
 }
 

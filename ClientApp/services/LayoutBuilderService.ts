@@ -3,15 +3,7 @@ import {observable} from "mobx";
 export default class LayoutBuilderService {
 
     @observable
-    private selectedCharts: string[] = [];
-
-    public get SelectedCharts(): string[] {
-        return this.selectedCharts;
-    }
-
-    public set SelectedCharts(value: string[]) {
-        this.selectedCharts = value || [];
-    }
+    public selectedCharts: string[] = [];
 
     public isSelected(value: string) {
         return !!(this.selectedCharts.find(x => value === x));
@@ -21,7 +13,7 @@ export default class LayoutBuilderService {
         if (this.isSelected(value)) {
             this.selectedCharts = this.selectedCharts.filter(x => x !== value);
         } else {
-            this.selectedCharts.push(value);
+            this.selectedCharts = this.selectedCharts.concat([value]);
         }
     }
 
