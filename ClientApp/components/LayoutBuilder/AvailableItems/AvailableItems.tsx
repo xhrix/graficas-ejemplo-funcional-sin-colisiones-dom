@@ -30,7 +30,9 @@ export default class AvailableItems extends React.Component {
                                        checked={l.isSelected(x)}
                                        onChange={() => l.toggleSelection(x)}
                                 />
-                                <span className={styles.previewImg} style={{backgroundImage: `url('${x}')`}}/>
+                                <span className={styles.previewImg} style={{backgroundImage: `url('${x}')`}}>
+                                    <span>{x}</span>
+                                </span>
                             </label>
                         </li>
                     ))}
