@@ -4,6 +4,7 @@ import {ChartB} from './Charts/ChartB';
 import {ChartC} from "./Charts/ChartC";
 import {ChartD} from "./Charts/ChartD";
 import {ChartE} from "./Charts/ChartE";
+import * as styles from './Charts.scss';
 
 interface Props {
     id?: number;
@@ -17,19 +18,19 @@ export class Charts extends React.Component<Props> {
         return <div>
             <div className="container">
                 <div className="row">
-                    <div className={`col-sm xx-card ${single ? id == 1 ? 'xx-shown' : 'xx-hidden' : ''}`}>
+                    <div className={`col-sm ${styles.chart} ${single ? id == 1 ? styles.chartShown : styles.chartHidden : ''}`}>
                         <ChartA data={{title: 'Chart A'}}/>
                     </div>
-                    <div className={`col-sm xx-card ${single ? id == 2 ? 'xx-shown' : 'xx-hidden' : ''}`}>
+                    <div className={`col-sm ${styles.chart} ${single ? id == 2 ? styles.chartShown : styles.chartHidden : ''}`}>
                         <ChartB data={{title: 'Chart B'}}/>
                     </div>
-                    <div className={`col-sm mt-4 xx-card ${single ? id == 3 ? 'xx-shown' : 'xx-hidden' : ''}`}>
+                    <div className={`col-sm mt-4 ${styles.chart} ${single ? id == 3 ? styles.chartShown : styles.chartHidden : ''}`}>
                         <ChartC data={{title: 'Chart C'}}/>
                     </div>
-                    <div className={`col-sm mt-4 xx-card ${single ? id == 4 ? 'xx-shown' : 'xx-hidden' : ''}`}>
+                    <div className={`col-sm mt-4 ${styles.chart} ${single ? id == 4 ? styles.chartShown : styles.chartHidden : ''}`}>
                         <ChartD data={{title: 'Chart D'}}/>
                     </div>
-                    <div className={`col-sm mt-4 xx-card ${single ? id == 5 ? 'xx-shown' : 'xx-hidden' : ''}`}>
+                    <div className={`col-sm mt-4 ${styles.chart} ${single ? id == 5 ? styles.chartShown : styles.chartHidden : ''}`}>
                         <ChartE data={{title: 'Chart E'}}/>
                     </div>
                 </div>
