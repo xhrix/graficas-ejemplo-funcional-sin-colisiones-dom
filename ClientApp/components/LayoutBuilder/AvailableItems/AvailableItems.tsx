@@ -3,18 +3,19 @@ import ChartsService from "../../../services/ChartsService";
 import LayoutBuilderService from "../../../services/LayoutBuilderService";
 import {observer} from "mobx-react";
 import * as styles from './AvailableItems.scss';
+import ChartMeta from "../../../models/ChartMeta";
 
 @observer
 export default class AvailableItems extends React.Component {
 
     async componentDidMount() {
         this.setState({
-            items: [...await ChartsService.getAvailableCharts()]
+            items: await ChartsService.getAvailableCharts()
         });
     }
 
-    state = {
-        items: [] as string[],
+    state: { items: ChartMeta[] } = {
+        items: [],
     };
 
     render() {
@@ -30,8 +31,9 @@ export default class AvailableItems extends React.Component {
                                        checked={l.isSelected(x)}
                                        onChange={() => l.toggleSelection(x)}
                                 />
-                                <span className={styles.previewImg} style={{backgroundImage: `url('${x}')`}}>
-                                    <span>{x}</span>
+                                <span className={styles.previewImg}
+                                      style={{backgroundImage: `url('${x.thumbnailUrl}')`}}>
+                                    <span>{x.url}</span>
                                 </span>
                             </label>
                         </li>
