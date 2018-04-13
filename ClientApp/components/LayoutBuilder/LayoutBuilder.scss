@@ -17,11 +17,27 @@
     width: 100%;
   }
   .handle {
-    color: initial;
-    background: #757575;
-    width: 50px;
+    width: 34px;
     height: 100%;
     display: inline-block;
+    overflow: hidden;
+    line-height: 7px;
+    padding: 3px 4px;
+    text-align: center;
+    font-weight: bold;
+    cursor: move;
+    vertical-align: middle;
+    font-size: 15px;
+    font-family: sans-serif;
+    letter-spacing: 2px;
+    text-shadow: 0px 0 1px black;
+    box-shadow: 1px 1px 1px 1px #2b2b2b4a;
+    z-index: 10;
+    color: #4e4e4e;
+    &::after {
+      content: '.. .. .. ..';
+      box-shadow: none;
+    }
   }
 }
 
