@@ -20,7 +20,7 @@ const normalizeLayouts = (layouts: Layouts) => {
 
 const getSavedLayouts: () => Layouts = () => normalizeLayouts(JSON.parse(JSON.stringify(getFromLS("layouts") || {})));
 
-const layoutForItem = (counter: number) => ({
+const layoutForItem = () => ({
     i: "grid-item-" + uuid(),
     x: 0,
     y: 0,
@@ -71,11 +71,11 @@ export default class AddRemoveAndLocalStorage extends React.PureComponent<any, S
         this.setState({
             // Add a new item. It must have a unique key!
             layouts: {
-                xxs: (this.state.layouts.xxs ? this.state.layouts.xxs : []).concat(layoutForItem(this.state.newCounter)),
-                lg: (this.state.layouts.lg ? this.state.layouts.lg : []).concat(layoutForItem(this.state.newCounter)),
-                xs: (this.state.layouts.xs ? this.state.layouts.xs : []).concat(layoutForItem(this.state.newCounter)),
-                sm: (this.state.layouts.sm ? this.state.layouts.sm : []).concat(layoutForItem(this.state.newCounter)),
-                md: (this.state.layouts.md ? this.state.layouts.md : []).concat(layoutForItem(this.state.newCounter)),
+                xxs: (this.state.layouts.xxs ? this.state.layouts.xxs : []).concat(layoutForItem()),
+                lg: (this.state.layouts.lg ? this.state.layouts.lg : []).concat(layoutForItem()),
+                xs: (this.state.layouts.xs ? this.state.layouts.xs : []).concat(layoutForItem()),
+                sm: (this.state.layouts.sm ? this.state.layouts.sm : []).concat(layoutForItem()),
+                md: (this.state.layouts.md ? this.state.layouts.md : []).concat(layoutForItem()),
             },
             // Increment the counter to ensure key is always unique.
             newCounter: this.state.newCounter + 1
