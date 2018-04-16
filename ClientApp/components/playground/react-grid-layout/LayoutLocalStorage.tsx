@@ -1,6 +1,6 @@
 import * as React from "react";
 import {WidthProvider, Responsive} from "react-grid-layout";
-import * as styles from './PlaygroundRoot.scss';
+import * as styles from '../../roots/PlaygroundRoot.scss';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS("layouts") || {};

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from './PlaygroundRoot.scss';
+import * as styles from '../../roots/PlaygroundRoot.scss';
 import * as _ from "lodash";
 import {Responsive, WidthProvider} from "react-grid-layout";
 
