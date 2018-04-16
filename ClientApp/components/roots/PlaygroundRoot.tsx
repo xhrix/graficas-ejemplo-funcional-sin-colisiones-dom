@@ -2,7 +2,7 @@ import * as React from 'react';
 import {RouteComponentProps} from "react-router";
 import * as ReactGridLayout from 'react-grid-layout';
 import * as styles from './PlaygroundRoot.scss';
-import ResponsiveLocalStorageLayout from "./LayoutLocalStorage";
+import AddRemoveAndLocalStorage from "./AddRemoveAndLocalStorage";
 
 // layout is an array of objects, see the demo for more complete usage
 const layout = [
@@ -32,7 +32,8 @@ const PlaygroundRoot = ({match}: RouteComponentProps<MatchProps>) => (
     <div>
         {/*<AddRemoveLayout/>*/}
         {/*<ShowcaseLayout/>*/}
-        <ResponsiveLocalStorageLayout/>
+        {/*<ResponsiveLocalStorageLayout/>*/}
+        <AddRemoveAndLocalStorage/>
     </div>
 );
 
