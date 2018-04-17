@@ -1,13 +1,25 @@
 import * as React from 'react';
 import {RouteComponentProps} from "react-router";
-import {Config, sortableSavableGrid, SortableSavableGridApi} from "../playground/react-grid-layout/SortableSavableGrid";
+import {
+    Config,
+    InjectedSortableSavableGridProps,
+    sortableSavableGrid,
+    SortableSavableGridApi
+} from "../playground/react-grid-layout/SortableSavableGrid";
 import {Layouts} from "react-grid-layout";
 import * as styles from './PlaygroundRoot.scss';
 
-class GridItem extends React.Component {
+interface GridItemProps extends InjectedSortableSavableGridProps {
+
+}
+
+class GridItem extends React.Component<GridItemProps> {
     render() {
         return (
-            <span className="text">ELEMENTO</span>
+            <div className={styles.item}>
+                {this.props.layout.i}
+                <span className={styles.closeBtn} onClick={() => grid.removeItem(this.props.layout.i || '')}>x</span>
+            </div>
         );
     }
 }
@@ -44,7 +56,7 @@ const config: Config = {
     cols: {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2},
 };
 
-const MyGrid = sortableSavableGrid(config)(GridItem);
+const MySortableSavableGrid = sortableSavableGrid(config)(GridItem);
 
 interface MatchProps {
 }
@@ -55,7 +67,7 @@ const PlaygroundRoot = ({match}: RouteComponentProps<MatchProps>) => (
     <div>
         <button className={styles.cuteButton} onClick={() => grid.addItem()}>Add</button>
         <button className={styles.cuteButton} onClick={() => grid.resetLayout()}>Reset</button>
-        <MyGrid ref={(ref: SortableSavableGridApi) => grid = ref}/>
+        <MySortableSavableGrid ref={(ref: SortableSavableGridApi) => grid = ref}/>
     </div>
 );
 

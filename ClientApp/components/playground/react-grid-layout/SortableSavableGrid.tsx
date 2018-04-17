@@ -8,7 +8,6 @@ The layout provided by this HOC is responsive.
 import * as React from "react";
 import {WidthProvider, Responsive, Layout, Breakpoints, Layouts} from "react-grid-layout";
 import * as uuid from 'uuid/v4';
-import * as styles from "../../roots/PlaygroundRoot.scss";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -69,9 +68,14 @@ export interface Config {
 export interface SortableSavableGridApi {
     addItem: () => void;
     resetLayout: () => void;
+    removeItem: (itemKey: string) => void;
 }
 
-export const sortableSavableGrid = (config: Config) => (Component: React.ComponentType) => {
+export interface InjectedSortableSavableGridProps {
+    layout: Layout;
+}
+
+export const sortableSavableGrid = (config: Config) => <P extends InjectedSortableSavableGridProps>(UnwrappedComponent: React.ComponentType<P>) => {
     return class SortableSavableGrid extends React.PureComponent<any, State> implements SortableSavableGridApi {
         constructor(props: any) {
             super(props);
@@ -106,8 +110,7 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
             this.setState({breakpoint});
         };
 
-        onRemoveItem = (i: any) => {
-            console.log("removing", i);
+        removeItem = (i: string) => {
             this.setState({
                 layouts: {
                     sm: this.state.layouts.sm ? this.state.layouts.sm.filter(x => x.i !== i) : [],
@@ -132,10 +135,8 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
 
         gridItem = (el: Layout) => {
             return (
-                // TODO: Remove styles.item
-                <div className={styles.item} key={el.i} data-grid={el}>
-                    <Component/>
-                    <span className={styles.closeBtn} onClick={() => this.onRemoveItem(el.i)}>x</span>
+                <div key={el.i} data-grid={el}>
+                    <UnwrappedComponent layout={el}/>
                 </div>
             );
         };
