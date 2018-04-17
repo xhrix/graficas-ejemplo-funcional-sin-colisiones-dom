@@ -43,3 +43,20 @@ export const normalizedLayoutsOf = (layout: () => Layout[]) => ({
  * @returns {ReactGridLayout.Layouts}
  */
 export const emptyNormalizedLayouts = () => normalizedLayoutsOf(() => []);
+
+/**
+ * Appends a layout to a normalized {@see ReactGridLayout.Layouts}.
+ *
+ * This method does not modify the original {@param layouts}.
+ *
+ * @param {ReactGridLayout.Layouts} layouts - Where to append the layout.
+ * @param newLayout - Returns the layout to append.
+ * @returns {ReactGridLayout.Layouts} - A new {@see ReactGridLayout.Layouts}.
+ */
+export const appendLayout = (layouts: Layouts, newLayout: () => Layout): Layouts => ({
+    xxs: (layouts.xxs ? layouts.xxs : []).concat(newLayout()),
+    xs: (layouts.xs ? layouts.xs : []).concat(newLayout()),
+    sm: (layouts.sm ? layouts.sm : []).concat(newLayout()),
+    md: (layouts.md ? layouts.md : []).concat(newLayout()),
+    lg: (layouts.lg ? layouts.lg : []).concat(newLayout()),
+});

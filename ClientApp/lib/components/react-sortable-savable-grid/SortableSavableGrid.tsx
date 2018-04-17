@@ -1,6 +1,12 @@
 import * as React from "react";
 import {WidthProvider, Responsive, Layout, Breakpoints, Layouts} from "react-grid-layout";
-import {emptyNormalizedLayouts, normalizedLayoutsOf, normalizeLayouts, randomLayout} from "./ReactGridLayoutUtil";
+import {
+    appendLayout,
+    emptyNormalizedLayouts,
+    normalizedLayoutsOf,
+    normalizeLayouts,
+    randomLayout
+} from "./ReactGridLayoutUtil";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -77,13 +83,7 @@ export const sortableSavableGrid = (config: SortableSavableGridConfig) => <P ext
 
         addItem = () => {
             this.setState({
-                layouts: {
-                    xxs: (this.state.layouts.xxs ? this.state.layouts.xxs : []).concat(randomLayout()),
-                    lg: (this.state.layouts.lg ? this.state.layouts.lg : []).concat(randomLayout()),
-                    xs: (this.state.layouts.xs ? this.state.layouts.xs : []).concat(randomLayout()),
-                    sm: (this.state.layouts.sm ? this.state.layouts.sm : []).concat(randomLayout()),
-                    md: (this.state.layouts.md ? this.state.layouts.md : []).concat(randomLayout()),
-                },
+                layouts: appendLayout(this.state.layouts, randomLayout),
             });
         };
 
