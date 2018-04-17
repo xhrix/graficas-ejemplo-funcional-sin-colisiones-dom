@@ -65,8 +65,12 @@ export interface Config {
     onLayoutChange: (layout: Layout, layouts: Layouts) => void;
 }
 
+export interface SortableSavableGridApi {
+    addItem: () => void;
+}
+
 export const sortableSavableGrid = (config: Config) => (Component: React.ComponentType) => {
-    return class SortableSavableGrid extends React.PureComponent<any, State> {
+    return class SortableSavableGrid extends React.PureComponent<any, State> implements SortableSavableGridApi {
         constructor(props: any) {
             super(props);
 
@@ -89,7 +93,7 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
             );
         };
 
-        onAddItem = () => {
+        addItem = () => {
             console.log("adding", "n" + this.state.newCounter);
             this.setState({
                 // Add a new item. It must have a unique key!
@@ -144,7 +148,6 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
             return (
                 <div>
                     <h2>{this.state.breakpoint}</h2>
-                    <button onClick={this.onAddItem}>Add Item</button>
                     <ResponsiveReactGridLayout
                         className="layout"
                         onLayoutChange={this.onLayoutChange}

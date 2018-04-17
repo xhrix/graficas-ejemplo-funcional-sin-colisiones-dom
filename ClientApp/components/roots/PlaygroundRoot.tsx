@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {RouteComponentProps} from "react-router";
-import {Config, sortableSavableGrid} from "../playground/react-grid-layout/SortableSavableGrid";
+import {Config, sortableSavableGrid, SortableSavableGridApi} from "../playground/react-grid-layout/SortableSavableGrid";
 import {Layouts} from "react-grid-layout";
+import * as styles from './PlaygroundRoot.scss';
 
 class GridItem extends React.Component {
     render() {
@@ -46,9 +47,17 @@ const MyGrid = sortableSavableGrid(config)(GridItem);
 interface MatchProps {
 }
 
+let grid: SortableSavableGridApi;
+
 const PlaygroundRoot = ({match}: RouteComponentProps<MatchProps>) => (
     <div>
-        <MyGrid/>
+        <button
+            className={styles.cuteButton}
+            onClick={() => grid.addItem()}
+        >
+            Add
+        </button>
+        <MyGrid ref={(ref: SortableSavableGridApi) => grid = ref}/>
     </div>
 );
 

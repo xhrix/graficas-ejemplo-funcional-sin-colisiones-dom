@@ -2,3 +2,4 @@
 
 export const item: string;
 export const closeBtn: string;
+export const cuteButton: string;
