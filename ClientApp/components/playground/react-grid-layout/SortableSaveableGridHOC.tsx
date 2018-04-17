@@ -1,3 +1,10 @@
+/*
+The only responsibility of this HOC is to provide the logic to add/remove items, as well as provide a way to allow
+the client code to save the new layout every time it changes.
+
+The layout provided by this HOC is responsive.
+ */
+
 import * as React from "react";
 import {WidthProvider, Responsive, Layout, Breakpoints, Layouts} from "react-grid-layout";
 import * as uuid from 'uuid/v4';
@@ -6,8 +13,9 @@ import * as styles from "../../roots/PlaygroundRoot.scss";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 /**
- * Makes sure the layouts have all the breakpoint keys.
- * @param {ReactGridLayout.Layouts} layouts - Maybe not normalized layouts.
+ * Makes sure the layouts have all the different breakpoint keys.
+ *
+ * @param {ReactGridLayout.Layouts} layouts - Layouts that might not be normalized.
  */
 const normalizeLayouts = (layouts: Layouts) => {
     if (!layouts.hasOwnProperty('sm')) layouts.sm = [];
@@ -18,9 +26,20 @@ const normalizeLayouts = (layouts: Layouts) => {
     return layouts;
 };
 
-const getSavedLayouts: () => Layouts = () => normalizeLayouts(JSON.parse(JSON.stringify(getFromLS("layouts") || {})));
-const layoutForItem = () => ({i: "grid-item-" + uuid(), x: 0, y: 0, w: 2, h: 2} as Layout);
-const generateLayouts = (layout: () => Layout[]) => ({
+/**
+ * Generates a layout with a random {@see ReactGridLayout.Layout.i}.
+ *
+ * @returns {ReactGridLayout.Layout}
+ */
+const randomLayout = () => ({i: "grid-item-" + uuid(), x: 0, y: 0, w: 2, h: 2} as Layout);
+
+/**
+ * Generates normalized {@see ReactGridLayout.Layouts} using a provided layout for every breakpoint.
+ *
+ * @param layout - When called, returns the layout to use for every breakpoint.
+ * @returns {ReactGridLayout.Layouts}
+ */
+const normalizedLayoutsOf = (layout: () => Layout[]) => ({
     sm: layout(),
     md: layout(),
     lg: layout(),
@@ -28,23 +47,17 @@ const generateLayouts = (layout: () => Layout[]) => ({
     xxs: layout(),
 } as Layouts);
 
+/**
+ * Generates normalized empty {@see ReactGridLayout.Layouts}.
+ *
+ * @returns {ReactGridLayout.Layouts}
+ */
+const emptyNormalizedLayouts = () => normalizedLayoutsOf(() => []);
+
 interface State {
     breakpoint: Breakpoints;
     layouts: Layouts;
     newCounter: number;
-}
-
-
-function getFromLS(key: any) {
-    let ls: any = {};
-    if (window.localStorage) {
-        try {
-            ls = JSON.parse(window.localStorage.getItem("rgl-8") || '{}') || {};
-        } catch (e) {
-            /*Ignore*/
-        }
-    }
-    return ls[key];
 }
 
 function saveToLS(key: any, value: any) {
@@ -58,16 +71,21 @@ function saveToLS(key: any, value: any) {
     }
 }
 
-export const SortableSaveableGridHOC = (Component: React.ComponentClass) => {
+export interface Config {
+    getSavedLayouts: Promise<Layouts>;
+}
+
+export const sortableSaveableGrid = (config: Config) => (Component: React.ComponentType) => {
     return class SortableSaveableGrid extends React.PureComponent<any, State> {
         constructor(props: any) {
             super(props);
 
-            const layouts = getSavedLayouts();
+            const layouts = emptyNormalizedLayouts(); // Start with empty layouts.;
+
             this.state = {
-                breakpoint: 'lg',
+                breakpoint: 'lg', // Any default starting breakpoint, it will be properly updated at render-time.
                 layouts,
-                newCounter: layouts.xs ? layouts.xs.length : 0,
+                newCounter: layouts.xs ? +layouts.xs.length || 0 : 0,
             };
         }
 
@@ -86,11 +104,11 @@ export const SortableSaveableGridHOC = (Component: React.ComponentClass) => {
             this.setState({
                 // Add a new item. It must have a unique key!
                 layouts: {
-                    xxs: (this.state.layouts.xxs ? this.state.layouts.xxs : []).concat(layoutForItem()),
-                    lg: (this.state.layouts.lg ? this.state.layouts.lg : []).concat(layoutForItem()),
-                    xs: (this.state.layouts.xs ? this.state.layouts.xs : []).concat(layoutForItem()),
-                    sm: (this.state.layouts.sm ? this.state.layouts.sm : []).concat(layoutForItem()),
-                    md: (this.state.layouts.md ? this.state.layouts.md : []).concat(layoutForItem()),
+                    xxs: (this.state.layouts.xxs ? this.state.layouts.xxs : []).concat(randomLayout()),
+                    lg: (this.state.layouts.lg ? this.state.layouts.lg : []).concat(randomLayout()),
+                    xs: (this.state.layouts.xs ? this.state.layouts.xs : []).concat(randomLayout()),
+                    sm: (this.state.layouts.sm ? this.state.layouts.sm : []).concat(randomLayout()),
+                    md: (this.state.layouts.md ? this.state.layouts.md : []).concat(randomLayout()),
                 },
                 // Increment the counter to ensure key is always unique.
                 newCounter: this.state.newCounter + 1
@@ -98,7 +116,7 @@ export const SortableSaveableGridHOC = (Component: React.ComponentClass) => {
         };
 
         resetLayout() {
-            this.setState({layouts: generateLayouts(() => [])});
+            this.setState({layouts: normalizedLayoutsOf(() => [])});
         }
 
         // We're using the cols coming back from this to calculate where to add new items.
@@ -125,6 +143,13 @@ export const SortableSaveableGridHOC = (Component: React.ComponentClass) => {
             saveToLS("layouts", layouts);
             this.setState({layouts});
         };
+
+        componentDidMount() {
+            config.getSavedLayouts.then(layouts => this.setState({
+                layouts: normalizeLayouts(layouts),
+                newCounter: layouts.xs ? +layouts.xs.length || 0 : 0,
+            }))
+        }
 
         render() {
             return (
