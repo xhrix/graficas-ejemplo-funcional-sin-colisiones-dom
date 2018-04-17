@@ -39,7 +39,9 @@ const getSavedLayouts: Promise<Layouts> = Promise.resolve(JSON.parse(JSON.string
 
 const config: Config = {
     getSavedLayouts,
-    onLayoutChange: (layout, layouts) => saveToLS("layouts", layouts)
+    onLayoutChange: (layout, layouts) => saveToLS("layouts", layouts),
+    rowHeight: 30,
+    cols: {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2},
 };
 
 const MyGrid = sortableSavableGrid(config)(GridItem);

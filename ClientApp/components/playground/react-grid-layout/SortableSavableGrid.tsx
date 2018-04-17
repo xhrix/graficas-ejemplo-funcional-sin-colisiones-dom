@@ -63,6 +63,8 @@ interface State {
 export interface Config {
     getSavedLayouts: Promise<Layouts>;
     onLayoutChange: (layout: Layout, layouts: Layouts) => void;
+    rowHeight: number;
+    cols: {[P in Breakpoints]: number };
 }
 
 export interface SortableSavableGridApi {
@@ -149,10 +151,9 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
                 <div>
                     <h2>{this.state.breakpoint}</h2>
                     <ResponsiveReactGridLayout
-                        className="layout"
                         onLayoutChange={this.onLayoutChange}
-                        rowHeight={30}
-                        cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
+                        rowHeight={config.rowHeight}
+                        cols={config.cols}
                         layouts={this.state.layouts}
                         onBreakpointChange={this.onBreakpointChange}
                     >
