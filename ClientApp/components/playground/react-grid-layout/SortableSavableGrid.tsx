@@ -60,19 +60,9 @@ interface State {
     newCounter: number;
 }
 
-function saveToLS(key: any, value: any) {
-    if (window.localStorage) {
-        window.localStorage.setItem(
-            "rgl-8",
-            JSON.stringify({
-                [key]: value
-            })
-        );
-    }
-}
-
 export interface Config {
     getSavedLayouts: Promise<Layouts>;
+    onLayoutChange: (layout: Layout, layouts: Layouts) => void;
 }
 
 export const sortableSavableGrid = (config: Config) => (Component: React.ComponentType) => {
@@ -80,7 +70,7 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
         constructor(props: any) {
             super(props);
 
-            const layouts = emptyNormalizedLayouts(); // Start with empty layouts.;
+            const layouts = emptyNormalizedLayouts(); // Start with empty layouts.
 
             this.state = {
                 breakpoint: 'lg', // Any default starting breakpoint, it will be properly updated at render-time.
@@ -139,9 +129,8 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
         };
 
         onLayoutChange = (layout: Layout, layouts: Layouts) => {
-            console.log("On Layout Change", {layout, layouts});
-            saveToLS("layouts", layouts);
             this.setState({layouts});
+            config.onLayoutChange(layout, layouts);
         };
 
         componentDidMount() {

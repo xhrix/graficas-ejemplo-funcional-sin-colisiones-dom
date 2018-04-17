@@ -23,10 +23,22 @@ function getFromLS(key: any) {
     return ls[key];
 }
 
+function saveToLS(key: any, value: any) {
+    if (window.localStorage) {
+        window.localStorage.setItem(
+            "rgl-8",
+            JSON.stringify({
+                [key]: value
+            })
+        );
+    }
+}
+
 const getSavedLayouts: Promise<Layouts> = Promise.resolve(JSON.parse(JSON.stringify(getFromLS("layouts") || {})));
 
 const config: Config = {
-    getSavedLayouts
+    getSavedLayouts,
+    onLayoutChange: (layout, layouts) => saveToLS("layouts", layouts)
 };
 
 const MyGrid = sortableSavableGrid(config)(GridItem);
