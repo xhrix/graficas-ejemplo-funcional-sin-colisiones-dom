@@ -68,6 +68,7 @@ export interface Config {
 
 export interface SortableSavableGridApi {
     addItem: () => void;
+    resetLayout: () => void;
 }
 
 export const sortableSavableGrid = (config: Config) => (Component: React.ComponentType) => {
@@ -95,7 +96,6 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
 
         addItem = () => {
             this.setState({
-                // Add a new item. It must have a unique key!
                 layouts: {
                     xxs: (this.state.layouts.xxs ? this.state.layouts.xxs : []).concat(randomLayout()),
                     lg: (this.state.layouts.lg ? this.state.layouts.lg : []).concat(randomLayout()),

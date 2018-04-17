@@ -53,12 +53,8 @@ let grid: SortableSavableGridApi;
 
 const PlaygroundRoot = ({match}: RouteComponentProps<MatchProps>) => (
     <div>
-        <button
-            className={styles.cuteButton}
-            onClick={() => grid.addItem()}
-        >
-            Add
-        </button>
+        <button className={styles.cuteButton} onClick={() => grid.addItem()}>Add</button>
+        <button className={styles.cuteButton} onClick={() => grid.resetLayout()}>Reset</button>
         <MyGrid ref={(ref: SortableSavableGridApi) => grid = ref}/>
     </div>
 );
