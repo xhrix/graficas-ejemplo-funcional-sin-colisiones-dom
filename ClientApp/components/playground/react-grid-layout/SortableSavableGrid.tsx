@@ -84,16 +84,6 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
             };
         }
 
-        gridItem = (el: Layout) => {
-            return (
-                // TODO: Remove styles.item
-                <div className={styles.item} key={el.i} data-grid={el}>
-                    <Component/>
-                    <span className={styles.closeBtn} onClick={() => this.onRemoveItem(el.i)}>x</span>
-                </div>
-            );
-        };
-
         addItem = () => {
             this.setState({
                 layouts: {
@@ -140,7 +130,18 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
             }))
         }
 
+        gridItem = (el: Layout) => {
+            return (
+                // TODO: Remove styles.item
+                <div className={styles.item} key={el.i} data-grid={el}>
+                    <Component/>
+                    <span className={styles.closeBtn} onClick={() => this.onRemoveItem(el.i)}>x</span>
+                </div>
+            );
+        };
+
         render() {
+            const layouts: Layout[] = (this.state.layouts as any)[this.state.breakpoint] ? (this.state.layouts as any)[this.state.breakpoint] : [];
             return (
                 <ResponsiveReactGridLayout
                     onLayoutChange={this.onLayoutChange}
@@ -149,7 +150,7 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
                     layouts={this.state.layouts}
                     onBreakpointChange={this.onBreakpointChange}
                 >
-                    {((this.state.layouts as any)[this.state.breakpoint] ? (this.state.layouts as any)[this.state.breakpoint] : []).map((el: Layout) => this.gridItem(el))}
+                    {layouts.map(layout => this.gridItem(layout))}
                 </ResponsiveReactGridLayout>
             );
         }
