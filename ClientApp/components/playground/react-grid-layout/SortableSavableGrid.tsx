@@ -57,7 +57,6 @@ const emptyNormalizedLayouts = () => normalizedLayoutsOf(() => []);
 interface State {
     breakpoint: Breakpoints;
     layouts: Layouts;
-    newCounter: number;
 }
 
 export interface Config {
@@ -81,7 +80,6 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
             this.state = {
                 breakpoint: 'lg', // Any default starting breakpoint, it will be properly updated at render-time.
                 layouts,
-                newCounter: layouts.xs ? +layouts.xs.length || 0 : 0,
             };
         }
 
@@ -96,7 +94,6 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
         };
 
         addItem = () => {
-            console.log("adding", "n" + this.state.newCounter);
             this.setState({
                 // Add a new item. It must have a unique key!
                 layouts: {
@@ -106,8 +103,6 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
                     sm: (this.state.layouts.sm ? this.state.layouts.sm : []).concat(randomLayout()),
                     md: (this.state.layouts.md ? this.state.layouts.md : []).concat(randomLayout()),
                 },
-                // Increment the counter to ensure key is always unique.
-                newCounter: this.state.newCounter + 1
             });
         };
 
@@ -142,7 +137,6 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
         componentDidMount() {
             config.getSavedLayouts.then(layouts => this.setState({
                 layouts: normalizeLayouts(layouts),
-                newCounter: layouts.xs ? +layouts.xs.length || 0 : 0,
             }))
         }
 
