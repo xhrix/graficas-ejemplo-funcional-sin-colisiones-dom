@@ -1,10 +1,3 @@
-/*
-The only responsibility of this HOC is to provide the logic to add/remove items, as well as provide a way to allow
-the client code to save the new layout every time it changes.
-
-The layout provided by this HOC is responsive.
- */
-
 import * as React from "react";
 import {WidthProvider, Responsive, Layout, Breakpoints, Layouts} from "react-grid-layout";
 import * as uuid from 'uuid/v4';
@@ -58,24 +51,60 @@ interface State {
     layouts: Layouts;
 }
 
-export interface Config {
+/**
+ * Configuration of a sortable savable grid.
+ */
+export interface SortableSavableGridConfig {
     getSavedLayouts: Promise<Layouts>;
     onLayoutChange: (layout: Layout, layouts: Layouts) => void;
     rowHeight: number;
     cols: {[P in Breakpoints]: number };
 }
 
+/**
+ * Interaction API that the sortable savable grid exposes.
+ */
 export interface SortableSavableGridApi {
+    /**
+     * Adds an item to the grid.
+     */
     addItem: () => void;
+
+    /**
+     * Removes all the items in the grid.
+     */
     resetLayout: () => void;
+
+    /**
+     * Removes an item from the grid identified by a key.
+     *
+     * Note: The key of the item is the value found in {@see ReactGridLayout.Layout.i}.
+     * @param {string} itemKey - Key of the item to remove.
+     */
     removeItem: (itemKey: string) => void;
 }
 
+/**
+ * Properties that the wrapped component is injected.
+ */
 export interface InjectedSortableSavableGridProps {
+    /**
+     * Layout of the grid item.
+     */
     layout: Layout;
 }
 
-export const sortableSavableGrid = (config: Config) => <P extends InjectedSortableSavableGridProps>(UnwrappedComponent: React.ComponentType<P>) => {
+/**
+ * Configures a sortable savable grid HOC.
+ *
+ * @param {Config} config - Configuration.
+ */
+export const sortableSavableGrid = (config: SortableSavableGridConfig) => <P extends InjectedSortableSavableGridProps>(UnwrappedComponent: React.ComponentType<P>) => {
+
+    /**
+     * HOC that encapsulates the logic to handle a responsive and sortable grid of items, with the ability to add
+     * or remove items from it, as well as a way to provide a way to save and load a layout from any source.
+     */
     return class SortableSavableGrid extends React.PureComponent<any, State> implements SortableSavableGridApi {
         constructor(props: any) {
             super(props);

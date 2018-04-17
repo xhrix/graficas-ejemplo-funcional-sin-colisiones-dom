@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {RouteComponentProps} from "react-router";
 import {
-    Config,
+    SortableSavableGridConfig,
     InjectedSortableSavableGridProps,
     sortableSavableGrid,
     SortableSavableGridApi
@@ -49,7 +49,7 @@ function saveToLS(key: any, value: any) {
 
 const getSavedLayouts: Promise<Layouts> = Promise.resolve(JSON.parse(JSON.stringify(getFromLS("layouts") || {})));
 
-const config: Config = {
+const config: SortableSavableGridConfig = {
     getSavedLayouts,
     onLayoutChange: (layout, layouts) => saveToLS("layouts", layouts),
     rowHeight: 30,
