@@ -45,13 +45,13 @@ export const normalizedLayoutsOf = (layout: () => Layout[]) => ({
 export const emptyNormalizedLayouts = () => normalizedLayoutsOf(() => []);
 
 /**
- * Appends a layout to a normalized {@see ReactGridLayout.Layouts}.
+ * Appends a layout to a normalized {@see ReactGridLayout.Layouts} and returns it.
  *
  * This method does not modify the original {@param layouts}.
  *
  * @param {ReactGridLayout.Layouts} layouts - Where to append the layout.
  * @param newLayout - Returns the layout to append.
- * @returns {ReactGridLayout.Layouts} - A new {@see ReactGridLayout.Layouts}.
+ * @returns {ReactGridLayout.Layouts} - A new {@see ReactGridLayout.Layouts} containing the new layout.
  */
 export const appendLayout = (layouts: Layouts, newLayout: () => Layout): Layouts => ({
     xxs: (layouts.xxs ? layouts.xxs : []).concat(newLayout()),
@@ -59,4 +59,21 @@ export const appendLayout = (layouts: Layouts, newLayout: () => Layout): Layouts
     sm: (layouts.sm ? layouts.sm : []).concat(newLayout()),
     md: (layouts.md ? layouts.md : []).concat(newLayout()),
     lg: (layouts.lg ? layouts.lg : []).concat(newLayout()),
+});
+
+/**
+ * Returns a normalized {@see ReactGridLayout.Layouts} which does not contain the layout with a given {@see ReactGridLayout.Layout.i}.
+ *
+ * This method does not modify the original {@param layouts}.
+ *
+ * @param {ReactGridLayout.Layouts} layouts - Source of layouts.
+ * @param key - Key of the layout to remove.
+ * @returns {ReactGridLayout.Layouts} - A new {@see ReactGridLayout.Layouts} with the desired layouts removed.
+ */
+export const removeLayoutByKey = (layouts: Layouts, key: string): Layouts => ({
+    xxs: layouts.xxs ? layouts.xxs.filter(x => x.i !== key) : [],
+    xs: layouts.xs ? layouts.xs.filter(x => x.i !== key) : [],
+    sm: layouts.sm ? layouts.sm.filter(x => x.i !== key) : [],
+    md: layouts.md ? layouts.md.filter(x => x.i !== key) : [],
+    lg: layouts.lg ? layouts.lg.filter(x => x.i !== key) : [],
 });

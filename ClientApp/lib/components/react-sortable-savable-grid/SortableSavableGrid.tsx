@@ -5,7 +5,8 @@ import {
     emptyNormalizedLayouts,
     normalizedLayoutsOf,
     normalizeLayouts,
-    randomLayout
+    randomLayout,
+    removeLayoutByKey
 } from "./ReactGridLayoutUtil";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -99,13 +100,7 @@ export const sortableSavableGrid = (config: SortableSavableGridConfig) => <P ext
 
         removeItem = (i: string) => {
             this.setState({
-                layouts: {
-                    sm: this.state.layouts.sm ? this.state.layouts.sm.filter(x => x.i !== i) : [],
-                    lg: this.state.layouts.lg ? this.state.layouts.lg.filter(x => x.i !== i) : [],
-                    xs: this.state.layouts.xs ? this.state.layouts.xs.filter(x => x.i !== i) : [],
-                    xxs: this.state.layouts.xxs ? this.state.layouts.xxs.filter(x => x.i !== i) : [],
-                    md: this.state.layouts.md ? this.state.layouts.md.filter(x => x.i !== i) : [],
-                }
+                layouts: removeLayoutByKey(this.state.layouts, i)
             });
         };
 
