@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {RouteComponentProps} from "react-router";
-import {Config, sortableSaveableGrid} from "../playground/react-grid-layout/SortableSaveableGridHOC";
+import {Config, sortableSavableGrid} from "../playground/react-grid-layout/SortableSavableGrid";
 import {Layouts} from "react-grid-layout";
 
 class GridItem extends React.Component {
@@ -29,7 +29,7 @@ const config: Config = {
     getSavedLayouts
 };
 
-const MyGrid = sortableSaveableGrid(config)(GridItem);
+const MyGrid = sortableSavableGrid(config)(GridItem);
 
 interface MatchProps {
 }

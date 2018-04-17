@@ -75,8 +75,8 @@ export interface Config {
     getSavedLayouts: Promise<Layouts>;
 }
 
-export const sortableSaveableGrid = (config: Config) => (Component: React.ComponentType) => {
-    return class SortableSaveableGrid extends React.PureComponent<any, State> {
+export const sortableSavableGrid = (config: Config) => (Component: React.ComponentType) => {
+    return class SortableSavableGrid extends React.PureComponent<any, State> {
         constructor(props: any) {
             super(props);
 
