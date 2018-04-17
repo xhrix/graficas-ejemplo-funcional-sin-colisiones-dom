@@ -148,18 +148,15 @@ export const sortableSavableGrid = (config: Config) => (Component: React.Compone
 
         render() {
             return (
-                <div>
-                    <h2>{this.state.breakpoint}</h2>
-                    <ResponsiveReactGridLayout
-                        onLayoutChange={this.onLayoutChange}
-                        rowHeight={config.rowHeight}
-                        cols={config.cols}
-                        layouts={this.state.layouts}
-                        onBreakpointChange={this.onBreakpointChange}
-                    >
-                        {((this.state.layouts as any)[this.state.breakpoint] ? (this.state.layouts as any)[this.state.breakpoint] : []).map((el: Layout) => this.gridItem(el))}
-                    </ResponsiveReactGridLayout>
-                </div>
+                <ResponsiveReactGridLayout
+                    onLayoutChange={this.onLayoutChange}
+                    rowHeight={config.rowHeight}
+                    cols={config.cols}
+                    layouts={this.state.layouts}
+                    onBreakpointChange={this.onBreakpointChange}
+                >
+                    {((this.state.layouts as any)[this.state.breakpoint] ? (this.state.layouts as any)[this.state.breakpoint] : []).map((el: Layout) => this.gridItem(el))}
+                </ResponsiveReactGridLayout>
             );
         }
     }
