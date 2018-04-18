@@ -9,6 +9,7 @@ interface Props {
 
 interface State {
     availableCharts: ChartMeta[];
+    selectedCharts: ChartMeta[];
 }
 
 export default class LayoutBuilder extends React.Component<Props, State> {
@@ -16,7 +17,8 @@ export default class LayoutBuilder extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            availableCharts: []
+            availableCharts: [],
+            selectedCharts: [],
         };
     }
 
@@ -26,12 +28,20 @@ export default class LayoutBuilder extends React.Component<Props, State> {
         });
     }
 
-    private isSelected = (chartMeta: ChartMeta) => {
-        return false;
+    private isSelected = (value: ChartMeta) => {
+        return !!(this.state.selectedCharts.find(x => value.url === x.url));
     };
 
-    private toggleSelection = (chartMeta: ChartMeta) => {
-
+    private toggleSelection = (value: ChartMeta) => {
+        if (this.isSelected(value)) {
+            this.setState({
+                selectedCharts: this.state.selectedCharts.filter(x => x.url !== value.url)
+            })
+        } else {
+            this.setState({
+                selectedCharts: this.state.selectedCharts.concat([value])
+            })
+        }
     };
 
 
