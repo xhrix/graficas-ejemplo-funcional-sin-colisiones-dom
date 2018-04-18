@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {RouteComponentProps} from "react-router";
-import SortableSavableGridIFrames from "../playground/react-grid-layout/SortableSavableGridIFrames";
+import SortableSavableGridExample from "../../lib/components/react-sortable-savable-grid/SortableSavableGridExample";
 
 interface MatchProps {
 
 }
 
 const PlaygroundRoot = ({match}: RouteComponentProps<MatchProps>) => (
-    <SortableSavableGridIFrames/>
+    <SortableSavableGridExample/>
 );
 
 export default PlaygroundRoot;

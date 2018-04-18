@@ -1,18 +1,24 @@
 import * as React from 'react';
 import {
     SortableSavableGridConfig,
-    InjectedSortableSavableGridProps,
+    InjectedGridItemProps,
     sortableSavableGrid,
-    SortableSavableGridApi
 } from "./SortableSavableGrid";
-import {Layouts} from "react-grid-layout";
+import {Layout, Layouts} from "react-grid-layout";
+import {
+    appendLayout,
+    emptyNormalizedLayouts,
+    normalizedLayoutsOf,
+    normalizeLayouts,
+    randomLayout, removeLayoutByKey
+} from "./ReactGridLayoutUtil";
 
 const styles: any = {
     ctn: {background: 'gainsboro', height: '100%', width: '100%'},
     closeBtn: {position: 'absolute', right: '2px', top: '0', cursor: 'pointer'},
 };
 
-interface GridItemProps extends InjectedSortableSavableGridProps {
+interface GridItemProps extends InjectedGridItemProps {
 
 }
 
@@ -21,7 +27,8 @@ class GridItem extends React.Component<GridItemProps> {
         return (
             <div style={styles.ctn}>
                 {this.props.layout.i}
-                <span style={styles.closeBtn} onClick={() => grid.removeItem(this.props.layout.i || '')}>x</span>
+                <span style={styles.closeBtn}
+                      onClick={() => this.props.removeFromGrid(this.props.layout.i || '')}>x</span>
             </div>
         );
     }
@@ -53,22 +60,62 @@ function saveToLS(key: any, value: any) {
 const getSavedLayouts: Promise<Layouts> = Promise.resolve(JSON.parse(JSON.stringify(getFromLS("layouts") || {})));
 
 const config: SortableSavableGridConfig = {
-    getSavedLayouts,
-    onLayoutChange: (layout, layouts) => saveToLS("layouts", layouts),
     rowHeight: 30,
     cols: {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2},
 };
 
 const MySortableSavableGrid = sortableSavableGrid(config)(GridItem);
 
-let grid: SortableSavableGridApi;
+interface State {
+    layouts: Layouts;
+}
 
-const SortableSavableGridExample = () => (
-    <div>
-        <button onClick={() => grid.addItem()}>Add</button>
-        <button onClick={() => grid.resetLayout()}>Reset</button>
-        <MySortableSavableGrid ref={(ref: SortableSavableGridApi) => grid = ref}/>
-    </div>
-);
+export default class SortableSavableGridExample extends React.Component<any, State> {
 
-export default SortableSavableGridExample;
+    constructor(props: any) {
+        super(props);
+        const layouts = emptyNormalizedLayouts(); // Start with empty layouts.
+        this.state = {
+            layouts
+        };
+    }
+
+    private addItem = () => {
+        this.setState({
+            layouts: appendLayout(this.state.layouts, randomLayout),
+        });
+    };
+
+    private resetLayout = () => {
+        this.setState({layouts: normalizedLayoutsOf(() => [])});
+    };
+
+    private onLayoutChange = (layout: Layout, layouts: Layouts) => {
+        this.setState({layouts});
+        saveToLS("layouts", layouts);
+    };
+
+    private removeItem = (key: string) => {
+        this.setState({
+            layouts: removeLayoutByKey(this.state.layouts, key)
+        });
+    };
+
+    componentDidMount() {
+        getSavedLayouts.then(layouts => this.setState({
+            layouts: normalizeLayouts(layouts),
+        }))
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.addItem}>Add</button>
+                <button onClick={this.resetLayout}>Reset</button>
+                <MySortableSavableGrid layouts={this.state.layouts}
+                                       onRemoveItemClicked={this.removeItem}
+                                       onLayoutChange={this.onLayoutChange}/>
+            </div>
+        );
+    }
+}
