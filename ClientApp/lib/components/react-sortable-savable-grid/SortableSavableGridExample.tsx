@@ -10,8 +10,9 @@ import {
     emptyNormalizedLayouts,
     normalizedLayoutsOf,
     normalizeLayouts,
-    randomLayout, removeLayoutByKey
+    removeLayoutByKey
 } from "./ReactGridLayoutUtil";
+import * as uuid from 'uuid/v4';
 
 const styles: any = {
     ctn: {background: 'gainsboro', height: '100%', width: '100%'},
@@ -81,6 +82,7 @@ export default class SortableSavableGridExample extends React.Component<any, Sta
     }
 
     private addItem = () => {
+        const randomLayout = () => ({i: "grid-item-" + uuid(), x: 0, y: 0, w: 2, h: 2} as Layout);
         this.setState({
             layouts: appendLayout(this.state.layouts, randomLayout),
         });

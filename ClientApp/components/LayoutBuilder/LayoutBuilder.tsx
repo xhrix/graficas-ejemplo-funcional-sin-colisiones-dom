@@ -6,10 +6,10 @@ import * as availablesStyles from './AvailableItems/AvailableItems.scss';
 import {
     appendLayout,
     emptyNormalizedLayouts,
-    randomLayout,
     removeLayoutByKey
 } from "../../lib/components/react-sortable-savable-grid/ReactGridLayoutUtil";
 import {Breakpoints, Layout, Layouts, Responsive, WidthProvider} from "react-grid-layout";
+import * as uuid from 'uuid/v4';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -51,7 +51,7 @@ export default class LayoutBuilder extends React.Component<Props, State> {
             this.removeGridItemByChartMetaOnly(value);
         } else {
             // Add
-            const newLayout = randomLayout();
+            const newLayout = {i: "grid-item-" + uuid(), x: 0, y: 0, w: 5, h: 5} as Layout;
             this.setState({
                 selectedCharts: this.state.selectedCharts.concat([value]),
                 layouts: appendLayout(this.state.layouts, () => newLayout),

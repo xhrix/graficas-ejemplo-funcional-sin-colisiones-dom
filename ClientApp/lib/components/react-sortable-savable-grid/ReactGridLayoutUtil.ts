@@ -1,5 +1,4 @@
 import {Layout, Layouts} from "react-grid-layout";
-import * as uuid from 'uuid/v4';
 
 /**
  * Makes sure the layouts have all the different breakpoint keys.
@@ -14,13 +13,6 @@ export const normalizeLayouts = (layouts: Layouts) => {
     if (!layouts.hasOwnProperty('xxs')) layouts.xxs = [];
     return layouts;
 };
-
-/**
- * Generates a layout with a random {@see ReactGridLayout.Layout.i}.
- *
- * @returns {ReactGridLayout.Layout}
- */
-export const randomLayout = () => ({i: "grid-item-" + uuid(), x: 0, y: 0, w: 2, h: 2} as Layout);
 
 /**
  * Generates normalized {@see ReactGridLayout.Layouts} using a provided layout for every breakpoint.
