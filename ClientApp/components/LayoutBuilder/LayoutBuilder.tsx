@@ -90,12 +90,10 @@ export default class LayoutBuilder extends React.Component<Props, State> {
         }
 
         return (
-            <div className={styles.iframePreviewCtn} key={el.i} data-grid={el}>
-                <div className={styles.iframePreview} style={{backgroundImage: (`url(${chartMeta.thumbnailUrl})`)}}>
-                    <span>
-                        {chartMeta.url}
-                    </span>
-                </div>
+            <div className={styles.gridItem} key={el.i} data-grid={el}>
+                <iframe src={chartMeta.url}
+                        onLoad={x => console.log('TODO: Put a loading thing while the iframe shows up.', x)}/>
+                <span className={styles.fullHandle}/>
                 {/*<UnwrappedComponent layout={el} removeFromGrid={this.props.onRemoveItemClicked}/>*/}
             </div>
         );
