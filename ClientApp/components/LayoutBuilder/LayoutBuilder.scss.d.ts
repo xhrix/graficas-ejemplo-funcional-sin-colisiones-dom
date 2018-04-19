@@ -3,3 +3,4 @@
 export const container: string;
 export const gridItem: string;
 export const fullHandle: string;
+export const removeGridItem: string;

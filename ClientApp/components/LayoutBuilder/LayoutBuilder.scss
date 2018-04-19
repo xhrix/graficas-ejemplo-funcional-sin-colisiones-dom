@@ -22,4 +22,25 @@
     width: 100%;
     height: 100%;
   }
+  .remove-grid-item {
+    color: red;
+    content: '';
+    text-shadow: 0px 1px 1px #3a3a3a9e;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4em;
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+    &:hover {
+      background: #ff2020;
+      color: white;
+    }
+  }
 }
