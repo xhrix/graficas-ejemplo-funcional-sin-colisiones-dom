@@ -46,3 +46,42 @@
     }
   }
 }
+
+$base-color: #ddd;
+$shine-color: #e8e8e8;
+$animation-duration: 1.6s;
+$avatar-offset: 52+16;
+@mixin background-gradient {
+  background-image: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+  background-size: 600px;
+}
+
+.skeleton {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  .skeleton-line {
+    width: 280px;
+    max-width: 80%;
+    height: 22px;
+    margin: 6px 0;
+    @include background-gradient;
+    animation: skeleton-shine-lines $animation-duration infinite linear;
+  }
+  @keyframes skeleton-shine-lines {
+    0% {
+      background-position: -100px;
+    }
+    40%,
+    100% {
+      background-position: 240px;
+    }
+  }
+}

@@ -59,27 +59,14 @@ export default class LayoutBuilder extends React.Component<Props, State> {
         }
     };
 
-    private removeGridItemByChartMetaOnly(chartMeta: ChartMeta) {
+    private removeGridItemByChartMetaOnly = (chartMeta: ChartMeta) => {
         const indexInSelectedCharts = this.state.selectedCharts.findIndex(x => x.chartGUID === chartMeta.chartGUID);
         const layout = this.state.layouts.xs ? this.state.layouts.xs[indexInSelectedCharts] : null;
         if (!layout) throw new Error(`Charts and Layouts don't match anymore.`);
-        this.removeGridItem(chartMeta, layout);
-    }
-
-    private removeGridItemByLayoutOnly(layout: Layout) {
-        const indexInLayouts = this.state.layouts.xs ? this.state.layouts.xs.findIndex(x => x.i === layout.i) : -1;
-        const chartMeta = this.state.selectedCharts[indexInLayouts];
-        if (!chartMeta) {
-            throw new Error(`Layouts and Charts don't match anymore.`);
-        }
-        this.removeGridItem(chartMeta, layout);
-    }
-
-    private removeGridItem(chartMeta: ChartMeta, layout: Layout) {
         const layouts = removeLayoutByKey(this.state.layouts, layout.i || '');
         const selectedCharts = this.state.selectedCharts.filter(x => x.chartGUID !== chartMeta.chartGUID);
         this.setState({selectedCharts, layouts});
-    }
+    };
 
     private onLayoutChange = (layout: Layout, layouts: Layouts) => {
         this.setState({layouts});
@@ -90,25 +77,17 @@ export default class LayoutBuilder extends React.Component<Props, State> {
         this.setState({breakpoint});
     };
 
-    private gridItem = (el: Layout, index: number) => {
+    private gridItem = (layout: Layout, index: number) => {
         const chartMeta = this.state.selectedCharts.length > index ? this.state.selectedCharts[index] : null;
 
         if (!chartMeta) {
             throw new Error(`Charts and Layouts don't match anymore.`);
         }
 
-        return (
-            <div className={styles.gridItem} key={el.i} data-grid={el}>
-                <iframe src={chartMeta.url}
-                        onLoad={x => console.log('TODO: Put a loading thing while the iframe shows up.', x)}/>
-                <span className={styles.fullHandle}/>
-                <a className={styles.removeGridItem}
-                   onClick={e => e.preventDefault() || this.removeGridItemByLayoutOnly(el)}
-                   onMouseDown={e => e.stopPropagation()}>
-                    ✕
-                </a>
-            </div>
-        );
+        return <div key={layout.i} data-grid={layout}>
+            <GridItem layout={layout} chartMeta={chartMeta}
+                      onRemoveChartMeta={this.removeGridItemByChartMetaOnly}/>
+        </div>;
     };
 
     public render() {
@@ -145,6 +124,50 @@ export default class LayoutBuilder extends React.Component<Props, State> {
                 >
                     {layouts.map((layout, i) => this.gridItem(layout, i))}
                 </ResponsiveReactGridLayout>
+            </div>
+        );
+    }
+}
+
+interface GridItemProps {
+    layout: Layout;
+    chartMeta: ChartMeta;
+    onRemoveChartMeta: (chartMeta: ChartMeta) => void;
+}
+
+interface GridItemState {
+    loaded: boolean;
+}
+
+class GridItem extends React.Component<GridItemProps, GridItemState> {
+    constructor(props: GridItemProps) {
+        super(props);
+        this.state = {
+            loaded: false
+        };
+    }
+
+    private skeleton = () => this.state.loaded ? null :
+        <div className={styles.skeleton}>
+            <span className={styles.skeletonLine}/>
+            <span className={styles.skeletonLine}/>
+            <span className={styles.skeletonLine}/>
+        </div>;
+
+    render() {
+        const {layout, chartMeta} = this.props;
+
+        return (
+            <div className={styles.gridItem}>
+                <iframe src={chartMeta.url}
+                        onLoad={x => this.setState({loaded: true})}/>
+                <span className={styles.fullHandle}/>
+                {this.skeleton()}
+                <a className={styles.removeGridItem}
+                   onClick={e => e.preventDefault() || this.props.onRemoveChartMeta(this.props.chartMeta)}
+                   onMouseDown={e => e.stopPropagation()}>
+                    ✕
+                </a>
             </div>
         );
     }
