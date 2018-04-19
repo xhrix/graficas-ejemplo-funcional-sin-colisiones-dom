@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HeinekenDemo.Controllers
+namespace WorkspaceBuilder.Controllers
 {
     public class HomeController : Controller
     {
