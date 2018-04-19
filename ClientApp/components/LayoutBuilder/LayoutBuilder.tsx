@@ -51,7 +51,7 @@ export default class LayoutBuilder extends React.Component<Props, State> {
             this.removeGridItemByChartMetaOnly(value);
         } else {
             // Add
-            const newLayout = {i: "grid-item-" + uuid(), x: 0, y: 0, w: 5, h: 5} as Layout;
+            const newLayout = {i: "grid-item-" + uuid(), x: 0, y: 0, w: 3, h: 10} as Layout;
             this.setState({
                 selectedCharts: this.state.selectedCharts.concat([value]),
                 layouts: appendLayout(this.state.layouts, () => newLayout),
