@@ -23,7 +23,8 @@
     height: 100%;
   }
   .remove-grid-item {
-    color: red;
+    color: red !important;
+    text-decoration: none;
     content: '';
     text-shadow: 0px 1px 1px #3a3a3a9e;
     position: absolute;
@@ -40,7 +41,7 @@
     transition: .2s ease-in-out;
     &:hover {
       background: #ff2020;
-      color: white;
+      color: white !important;
     }
   }
 }

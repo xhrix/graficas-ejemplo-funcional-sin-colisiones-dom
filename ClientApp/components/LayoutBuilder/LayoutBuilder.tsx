@@ -47,16 +47,9 @@ export default class LayoutBuilder extends React.Component<Props, State> {
 
     private toggleSelection = (value: ChartMeta) => {
         if (this.isSelected(value)) {
-
             // Remove
-            const indexInSelectedCharts = this.state.selectedCharts.findIndex(x => x.chartGUID === value.chartGUID);
-            const layout = this.state.layouts.xs ? this.state.layouts.xs[indexInSelectedCharts] : null;
-            if (!layout) throw new Error(`Layouts and Charts don't match anymore.`);
-            const layouts = removeLayoutByKey(this.state.layouts, layout.i || '');
-            const selectedCharts = this.state.selectedCharts.filter(x => x.chartGUID !== value.chartGUID);
-            this.setState({selectedCharts, layouts});
+            this.removeGridItemByChartMetaOnly(value);
         } else {
-
             // Add
             const newLayout = randomLayout();
             this.setState({
@@ -66,16 +59,31 @@ export default class LayoutBuilder extends React.Component<Props, State> {
         }
     };
 
+    private removeGridItemByChartMetaOnly(chartMeta: ChartMeta) {
+        const indexInSelectedCharts = this.state.selectedCharts.findIndex(x => x.chartGUID === chartMeta.chartGUID);
+        const layout = this.state.layouts.xs ? this.state.layouts.xs[indexInSelectedCharts] : null;
+        if (!layout) throw new Error(`Charts and Layouts don't match anymore.`);
+        this.removeGridItem(chartMeta, layout);
+    }
+
+    private removeGridItemByLayoutOnly(layout: Layout) {
+        const indexInLayouts = this.state.layouts.xs ? this.state.layouts.xs.findIndex(x => x.i === layout.i) : -1;
+        const chartMeta = this.state.selectedCharts[indexInLayouts];
+        if (!chartMeta) {
+            throw new Error(`Layouts and Charts don't match anymore.`);
+        }
+        this.removeGridItem(chartMeta, layout);
+    }
+
+    private removeGridItem(chartMeta: ChartMeta, layout: Layout) {
+        const layouts = removeLayoutByKey(this.state.layouts, layout.i || '');
+        const selectedCharts = this.state.selectedCharts.filter(x => x.chartGUID !== chartMeta.chartGUID);
+        this.setState({selectedCharts, layouts});
+    }
+
     private onLayoutChange = (layout: Layout, layouts: Layouts) => {
         this.setState({layouts});
         // saveToLS("layouts", layouts);
-    };
-
-    private removeItem = (key: string) => {
-        throw new Error('Not implemented');
-        // this.setState({
-        //     layouts: removeLayoutByKey(this.state.layouts, key)
-        // });
     };
 
     onBreakpointChange = (breakpoint: Breakpoints, cols: number) => {
@@ -94,8 +102,8 @@ export default class LayoutBuilder extends React.Component<Props, State> {
                 <iframe src={chartMeta.url}
                         onLoad={x => console.log('TODO: Put a loading thing while the iframe shows up.', x)}/>
                 <span className={styles.fullHandle}/>
-                <span className={styles.removeGridItem}>✕</span>
-                {/*<UnwrappedComponent layout={el} removeFromGrid={this.props.onRemoveItemClicked}/>*/}
+                <a className={styles.removeGridItem}
+                   onClick={e => e.preventDefault() || this.removeGridItemByLayoutOnly(el)}>✕</a>
             </div>
         );
     };
