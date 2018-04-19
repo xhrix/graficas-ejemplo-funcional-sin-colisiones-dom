@@ -103,7 +103,10 @@ export default class LayoutBuilder extends React.Component<Props, State> {
                         onLoad={x => console.log('TODO: Put a loading thing while the iframe shows up.', x)}/>
                 <span className={styles.fullHandle}/>
                 <a className={styles.removeGridItem}
-                   onClick={e => e.preventDefault() || this.removeGridItemByLayoutOnly(el)}>✕</a>
+                   onClick={e => e.preventDefault() || this.removeGridItemByLayoutOnly(el)}
+                   onMouseDown={e => e.stopPropagation()}>
+                    ✕
+                </a>
             </div>
         );
     };
