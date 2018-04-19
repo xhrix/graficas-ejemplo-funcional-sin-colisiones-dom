@@ -84,9 +84,8 @@ export default class LayoutBuilder extends React.Component<Props, State> {
             throw new Error(`Charts and Layouts don't match anymore.`);
         }
 
-        return <div key={layout.i} data-grid={layout}>
-            <GridItem layout={layout} chartMeta={chartMeta}
-                      onRemoveChartMeta={this.removeGridItemByChartMetaOnly}/>
+        return <div className={styles.gridItem} key={layout.i} data-grid={layout}>
+            <GridItem chartMeta={chartMeta} onRemoveChartMeta={this.removeGridItemByChartMetaOnly}/>
         </div>;
     };
 
@@ -130,7 +129,6 @@ export default class LayoutBuilder extends React.Component<Props, State> {
 }
 
 interface GridItemProps {
-    layout: Layout;
     chartMeta: ChartMeta;
     onRemoveChartMeta: (chartMeta: ChartMeta) => void;
 }
@@ -155,12 +153,12 @@ class GridItem extends React.Component<GridItemProps, GridItemState> {
         </div>;
 
     render() {
-        const {layout, chartMeta} = this.props;
+        const {chartMeta} = this.props;
 
         return (
-            <div className={styles.gridItem}>
+            <div>
                 <iframe src={chartMeta.url}
-                        onLoad={x => this.setState({loaded: true})}/>
+                        onLoad={() => this.setState({loaded: true})}/>
                 <span className={styles.fullHandle}/>
                 {this.skeleton()}
                 <a className={styles.removeGridItem}
