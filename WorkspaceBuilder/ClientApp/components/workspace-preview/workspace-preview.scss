@@ -1,16 +1,18 @@
+@import '../styles/base/include';
+
 .container {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: #ececec;
+  background: $workspace-preview-bg-color;
   margin: 25px 30px;
   cursor: pointer;
   padding: 28px 7px 6px 7px;
   width: 180px;
   height: 170px;
   &:hover {
-    background: darken(#ececec, 5%);
+    background: $workspace-preview-bg-color-hover;
   }
 }
 
@@ -24,7 +26,7 @@
 }
 
 .name {
-  color: #5d5d5d;
+  color: $workspace-name-color;
   font-size: 13px;
   padding: 5px 8px;
 }
