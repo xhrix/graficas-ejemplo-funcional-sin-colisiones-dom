@@ -1,8 +1,12 @@
+@import '../styles/base/include';
+
 .container {
-  background: white;
+  background: $header-bg-color;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  color: #5d5d5d;
+  height: $header-height;
+  color: $header-color;
+  font-size: $header-font-size;
+  font-weight: $header-font-weight;
 }
