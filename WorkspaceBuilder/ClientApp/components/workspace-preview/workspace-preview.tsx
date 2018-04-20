@@ -1,12 +1,14 @@
 import * as React from 'react';
 import * as styles from './workspace-preview.scss';
 import Workspace from "../../models/workspace";
+import {Link} from "react-router-dom";
+import Paths from "../routes/paths";
 
 const WorkspacePreview = ({workspace}: { workspace: Workspace }) => (
-    <div className={styles.container}>
+    <Link to={Paths.singleWorkspaces(workspace.id)} className={styles.container}>
         <span className={styles.previewImg} style={{backgroundImage: `url(${workspace.previewUrl})`}}/>
         <div className={styles.name}>{workspace.name}</div>
-    </div>
+    </Link>
 );
 
 export default WorkspacePreview;
