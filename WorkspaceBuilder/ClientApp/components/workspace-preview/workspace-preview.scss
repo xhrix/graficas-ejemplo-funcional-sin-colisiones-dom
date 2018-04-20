@@ -1,0 +1,30 @@
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: #ececec;
+  margin: 50px;
+  cursor: pointer;
+  padding: 28px 7px 6px 7px;
+  width: 180px;
+  height: 170px;
+  &:hover {
+    background: darken(#ececec, 5%);
+  }
+}
+
+.preview-img {
+  width: 80px;
+  height: 90px;
+  display: inline-block;
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.name {
+  color: #5d5d5d;
+  font-size: 13px;
+  padding: 5px 8px;
+}
