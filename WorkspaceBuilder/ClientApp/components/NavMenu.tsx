@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
         return <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="#">Navbar</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"/>
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,7 +23,7 @@ export class NavMenu extends React.Component<{}, {}> {
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a className="dropdown-item" href="#">Action</a>
                             <a className="dropdown-item" href="#">Another action</a>
-                            <div className="dropdown-divider"></div>
+                            <div className="dropdown-divider"/>
                             <a className="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>
