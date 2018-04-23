@@ -7,7 +7,7 @@ interface MatchProps {
 }
 
 const EditWorkspaceRoot = ({match}: RouteComponentProps<MatchProps>) => (
-    <EditWorkspacePage workspaceId={match.params.id}/>
+    <EditWorkspacePage workspaceId={+match.params.id}/>
 );
 
 export default EditWorkspaceRoot;
