@@ -1,0 +1,9 @@
+// Auto-generated code. Don't modify.
+
+export const container: string;
+export const header: string;
+export const title: string;
+export const content: string;
+export const item: string;
+export const image: string;
+export const text: string;
