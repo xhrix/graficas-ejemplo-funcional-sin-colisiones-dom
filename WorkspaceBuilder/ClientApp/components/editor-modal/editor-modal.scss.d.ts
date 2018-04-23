@@ -8,3 +8,6 @@ export const item: string;
 export const image: string;
 export const text: string;
 export const triangle: string;
+export const carets: string;
+export const caret: string;
+export const commonHeader: string;
