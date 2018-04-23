@@ -1,9 +1,15 @@
 import * as React from 'react';
 import * as styles from './editor-modal.scss';
+import WorkspaceCategory from "../../models/workspace-category";
 
-export default class EditorModal
-    extends React.Component {
+interface EditorModalProps {
+    workspaceCategories: WorkspaceCategory[];
+}
+
+export default class EditorModal extends React.Component<EditorModalProps> {
     render() {
+        const {workspaceCategories} = this.props;
+
         return (
             <div className={styles.container}>
                 <span className={styles.triangle}/>
@@ -12,18 +18,12 @@ export default class EditorModal
                 </div>
 
                 <ul className={styles.content}>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
-                    <li className={styles.item}><span className={styles.image}/><span className={styles.text}>Workstation Depalletizer</span></li>
+                    {workspaceCategories.map(cat => (
+                        <li key={`ws-cat-${cat.id}`} className={styles.item}>
+                            <span className={styles.image}/>
+                            <span className={styles.text}>{cat.name}</span>
+                        </li>
+                    ))}
                 </ul>
             </div>
         );

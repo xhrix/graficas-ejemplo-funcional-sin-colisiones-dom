@@ -6,6 +6,8 @@ import Workspace from "../../../models/workspace";
 import WorkspaceService from "../../../services/workspace-service";
 import {observer} from "mobx-react";
 import {observable} from "mobx";
+import WorkspaceCategory from "../../../models/workspace-category";
+import WorkspaceCategoryService from "../../../services/workspace-category-service";
 
 interface EditWorkspacePageProps {
     workspaceId: number;
@@ -17,15 +19,19 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
     @observable
     private workspace?: Workspace;
 
+    @observable
+    private workspaceCategories: WorkspaceCategory[] = [];
+
     async componentDidMount() {
         this.workspace = await WorkspaceService.getById(this.props.workspaceId);
+        this.workspaceCategories = await WorkspaceCategoryService.getAll();
     }
 
     render() {
         return (
             <div className={styles.container}>
                 <EditWorkspaceHeader title={`Edit Workspace ${this.props.workspaceId}`}/>
-                <EditorModal/>
+                <EditorModal workspaceCategories={this.workspaceCategories}/>
                 <div>
                     {!this.workspace ? 'Not found' : this.workspace.charts.map(chart => (
                         <div>{chart.chartGUID}</div>
