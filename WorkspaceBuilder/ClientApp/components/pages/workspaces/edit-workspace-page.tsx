@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Header from "../../header/header";
 import * as styles from './workspaces-page.scss';
+import EditWorkspaceHeader from "./edit-workspace-header/edit-workspace-header";
 
 interface EditWorkspacePageProps {
     workspaceId: number;
@@ -11,7 +11,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
         const {workspaceId} = this.props;
         return (
             <div className={styles.container}>
-                <Header title={`Edit Workspace ${workspaceId}`}/>
+                <EditWorkspaceHeader title={`Edit Workspace ${workspaceId}`}/>
             </div>
         );
     }
