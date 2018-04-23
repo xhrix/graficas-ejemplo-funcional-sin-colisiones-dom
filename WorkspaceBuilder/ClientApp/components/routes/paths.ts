@@ -3,7 +3,7 @@ export default class Paths {
         return '/workspaces';
     }
 
-    public static singleWorkspaces(id: number) {
-        return `/workspaces/${id}`;
+    public static editWorkspace(id: number) {
+        return `/workspaces/${id}/edit`;
     }
 }
