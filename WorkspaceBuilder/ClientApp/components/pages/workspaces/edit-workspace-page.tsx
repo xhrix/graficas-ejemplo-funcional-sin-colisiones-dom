@@ -34,7 +34,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                 <EditorModal workspaceCategories={this.workspaceCategories}/>
                 <div>
                     {!this.workspace ? 'Not found' : this.workspace.charts.map(chart => (
-                        <div>{chart.chartGUID}</div>
+                        <div key={`editor-chart-${chart.chartGUID}`}>{chart.chartGUID}</div>
                     ))}
                 </div>
             </div>
