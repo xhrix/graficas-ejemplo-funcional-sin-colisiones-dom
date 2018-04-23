@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from './LayoutBuilder.scss';
 import ChartMeta from "../../models/chart-meta";
-import ChartsService from "../../services/ChartsService";
+import ChartService from "../../services/chart-service";
 import * as availablesStyles from './AvailableItems/AvailableItems.scss';
 import {
     appendLayout,
@@ -37,7 +37,7 @@ export default class LayoutBuilder extends React.Component<Props, State> {
 
     async componentDidMount() {
         this.setState({
-            availableCharts: await ChartsService.getAvailableCharts()
+            availableCharts: await ChartService.getAvailableCharts()
         });
     }
 
