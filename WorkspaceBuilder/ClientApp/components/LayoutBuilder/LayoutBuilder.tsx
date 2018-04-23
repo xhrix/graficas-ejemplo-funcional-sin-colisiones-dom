@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as styles from './LayoutBuilder.scss';
-import ChartMeta from "../../models/ChartMeta";
+import ChartMeta from "../../models/chart-meta";
 import ChartsService from "../../services/ChartsService";
 import * as availablesStyles from './AvailableItems/AvailableItems.scss';
 import {
