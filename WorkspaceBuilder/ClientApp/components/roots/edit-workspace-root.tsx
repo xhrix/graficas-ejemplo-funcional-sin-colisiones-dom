@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {RouteComponentProps} from "react-router";
-import EditWorkspacePage from "../pages/workspaces/edit-workspace-page";
+import EditWorkspacePage from "../pages/edit-workspace-page/edit-workspace-page";
 
 interface MatchProps {
     id: number;
