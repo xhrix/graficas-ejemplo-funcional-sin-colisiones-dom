@@ -2,8 +2,9 @@
   position: fixed;
   background: none;
   right: 20px;
-  top: 90px;
-  width: 500px;
+  top: 65px;
+  width: 600px;
+  max-width: 90%;
 }
 
 .header {
@@ -50,3 +51,13 @@
   }
 }
 
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 20px solid #565656;
+  position: absolute;
+  top: -19px;
+  right: 40px;
+}

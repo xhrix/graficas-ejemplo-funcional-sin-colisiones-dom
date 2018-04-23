@@ -6,6 +6,7 @@ export default class EditorModal
     render() {
         return (
             <div className={styles.container}>
+                <span className={styles.triangle}/>
                 <div className={styles.header}>
                     <div className={styles.title}>Categorías</div>
                 </div>
