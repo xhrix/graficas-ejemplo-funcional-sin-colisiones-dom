@@ -5,6 +5,10 @@
   top: 65px;
   width: 600px;
   max-width: 90%;
+  transition: .2s ease-in-out;
+  transform: scale(0);
+  transform-origin: 90% 0%;
+  transform: scale(1);
 }
 
 .header {
@@ -38,6 +42,11 @@
     align-items: center;
     border-bottom: 1px solid gainsboro;
     padding: 9px 46px;
+    background: white;
+    cursor: pointer;
+    &:hover {
+      background: #f9f9f9;
+    }
     .image {
       display: inline-block;
       width: 40px;
