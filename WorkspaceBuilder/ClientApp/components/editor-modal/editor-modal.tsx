@@ -97,6 +97,7 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                             <div className={styles.header}>
                                 <div className={styles.title}>Categorías</div>
                             </div>
+                            <input className={styles.searchInput} type="text" placeholder={`Buscar...`}/>
                             {this.categories()}
                         </div>
 

@@ -18,3 +18,4 @@ export const chartItem: string;
 export const chartItemInfo: string;
 export const selectIndicator: string;
 export const active: string;
+export const searchInput: string;
