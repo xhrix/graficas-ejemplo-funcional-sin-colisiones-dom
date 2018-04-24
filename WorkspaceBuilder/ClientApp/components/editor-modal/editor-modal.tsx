@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as styles from './editor-modal.scss';
 import WorkspaceCategory from "../../models/workspace-category";
 import ChartMeta from "../../models/chart-meta";
+import * as $ from 'jquery';
 
 interface EditorModalProps {
     workspaceCategories: WorkspaceCategory[];
@@ -20,13 +21,13 @@ export default class EditorModal extends React.Component<EditorModalProps> {
     private onCategoryClick = (category: WorkspaceCategory) => {
         this.props.onCategoryClick(category);
         if (this.carrets) {
-            this.carrets.scrollLeft = this.carrets.offsetWidth;
+            $(this.carrets).stop().animate({scrollLeft: this.carrets.offsetWidth}, 120, 'swing');
         }
     };
 
     private onBackToCategoriesClick = () => {
         if (this.carrets) {
-            this.carrets.scrollLeft = 0;
+            $(this.carrets).stop().animate({scrollLeft: 0}, 120, 'swing');
         }
     };
 
