@@ -6,7 +6,7 @@ import Paths from "../routes/paths";
 
 const WorkspacePreview = ({workspace}: { workspace: Workspace }) => (
     <Link to={Paths.editWorkspace(workspace.id)} className={styles.container}>
-        <span className={styles.previewImg} style={{backgroundImage: `url(${workspace.previewUrl})`}}/>
+        <span className={styles.previewImg} style={{backgroundImage: `url(${workspace.thumbnailUrl})`}}/>
         <div className={styles.name}>{workspace.name}</div>
     </Link>
 );

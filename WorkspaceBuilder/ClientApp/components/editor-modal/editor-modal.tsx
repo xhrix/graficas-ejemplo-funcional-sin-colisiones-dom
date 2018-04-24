@@ -49,7 +49,7 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                     >
                         <div className={styles.chartItem}>
                             <div className={styles.chartItemInfo}>
-                                <span className={styles.image}/>
+                                <span className={styles.image} style={{backgroundImage: `url(${chart.thumbnailUrl})`}}/>
                                 <span className={styles.text}>{chart.name}</span>
                             </div>
                             <span
@@ -71,7 +71,7 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                         key={`ws-cat-${cat.id}`}
                         className={styles.item}
                         onClick={() => this.onCategoryClick(cat)}>
-                        <span className={styles.image}/>
+                        <span className={styles.image} style={{backgroundImage: `url(${cat.thumbnailUrl})`}}/>
                         <span className={styles.text}>{cat.name}</span>
                     </li>
                 ))}

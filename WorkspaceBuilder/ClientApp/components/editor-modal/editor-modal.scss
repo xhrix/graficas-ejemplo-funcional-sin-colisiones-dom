@@ -71,12 +71,13 @@
     }
     .image {
       display: inline-block;
-      width: 40px;
-      min-width: 40px;
-      height: 40px;
-      min-height: 40px;
-      background: #d0d0d0;
-      margin-right: 13px;
+      min-width: 44px;
+      min-height: 44px;
+      margin-right: 18px;
+      background-size: cover;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      border-radius: 12px;
     }
     .text {
       _: _;
