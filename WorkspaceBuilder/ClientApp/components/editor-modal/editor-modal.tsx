@@ -61,27 +61,29 @@ export default class EditorModal extends React.Component<EditorModalProps> {
 
     render() {
         return (
-            <div className={styles.container}>
-                <span className={styles.triangle}/>
+            [
+                <div key={'editor-modal-fade'} className={styles.fade}/>,
+                <div key={'editor-modal'} className={styles.container}>
+                    <span className={styles.triangle}/>
 
-                <div className={styles.commonHeader}/>
+                    <div className={styles.commonHeader}/>
 
-                <div className={styles.carets}>
-                    <div className={styles.caret}>
-                        <div className={styles.header}>
-                            <div className={styles.title}>Categorías</div>
+                    <div className={styles.carets}>
+                        <div className={styles.caret}>
+                            <div className={styles.header}>
+                                <div className={styles.title}>Categorías</div>
+                            </div>
+                            {this.categories()}
                         </div>
-                        {this.categories()}
-                    </div>
 
-                    <div className={styles.caret}>
-                        <div className={styles.header}>
-                            <div className={styles.title}>Indicadores</div>
+                        <div className={styles.caret}>
+                            <div className={styles.header}>
+                                <div className={styles.title}>Indicadores</div>
+                            </div>
+                            {this.graphics()}
                         </div>
-                        {this.graphics()}
                     </div>
-                </div>
-            </div>
+                </div>]
         );
     }
 }
