@@ -3,6 +3,8 @@ import * as styles from './editor-modal.scss';
 import WorkspaceCategory from "../../models/workspace-category";
 import ChartMeta from "../../models/chart-meta";
 import * as $ from 'jquery';
+import {observable} from "mobx";
+import {observer} from "mobx-react";
 
 interface EditorModalProps {
     workspaceCategories: WorkspaceCategory[];
@@ -14,9 +16,13 @@ interface EditorModalProps {
     onCloseClick: () => void;
 }
 
+@observer
 export default class EditorModal extends React.Component<EditorModalProps> {
 
     private carrets: HTMLDivElement | null;
+
+    @observable
+    private search = '';
 
     private onCategoryClick = (category: WorkspaceCategory) => {
         this.props.onCategoryClick(category);
@@ -62,11 +68,14 @@ export default class EditorModal extends React.Component<EditorModalProps> {
     }
 
     private categories() {
-        const {workspaceCategories, onCategoryClick} = this.props;
+        const {workspaceCategories} = this.props;
+
+        const search = this.search.toLocaleLowerCase();
+        const filteredCategories = search === '' ? workspaceCategories : workspaceCategories.filter(x => x.name.toLocaleLowerCase().indexOf(search) !== -1);
 
         return (
             <ul className={styles.content}>
-                {workspaceCategories.map(cat => (
+                {filteredCategories.map(cat => (
                     <li
                         key={`ws-cat-${cat.id}`}
                         className={styles.item}
@@ -97,7 +106,8 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                             <div className={styles.header}>
                                 <div className={styles.title}>Categorías</div>
                             </div>
-                            <input className={styles.searchInput} type="text" placeholder={`Buscar...`}/>
+                            <input value={this.search} onChange={e => this.search = e.currentTarget.value}
+                                   className={styles.searchInput} type="text" placeholder={`Buscar...`}/>
                             {this.categories()}
                         </div>
 
