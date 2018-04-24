@@ -24,6 +24,9 @@ export default class EditorModal extends React.Component<EditorModalProps> {
     @observable
     private search = '';
 
+    @observable
+    private graphicsSearch = '';
+
     private onCategoryClick = (category: WorkspaceCategory) => {
         this.props.onCategoryClick(category);
         if (this.carrets) {
@@ -41,13 +44,16 @@ export default class EditorModal extends React.Component<EditorModalProps> {
         const {selectedCategory, isChartSelected, onChartClick} = this.props;
         if (!selectedCategory) return <div className={styles.content}/>;
 
+        const search = this.graphicsSearch.toLocaleLowerCase();
+        const filteredCharts = search === '' ? selectedCategory.charts : selectedCategory.charts.filter(x => x.name.toLocaleLowerCase().indexOf(search) !== -1);
+
         return (
             <ul className={styles.content}>
                 {!selectedCategory.charts.length ? (
                     <li className={styles.item}>
                         <span className={styles.text}>No hay gráficos para esta categoría</span>
                     </li>
-                ) : selectedCategory.charts.map(chart => (
+                ) : filteredCharts.map(chart => (
                     <li
                         key={`ws-cat-chart-${chart.chartGUID}`}
                         className={styles.item}
@@ -119,6 +125,9 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                                 </a>
                                 <div className={styles.title}>Indicadores</div>
                             </div>
+                            <input value={this.graphicsSearch}
+                                   onChange={e => this.graphicsSearch = e.currentTarget.value}
+                                   className={styles.searchInput} type="text" placeholder={`Buscar...`}/>
                             {this.graphics()}
                         </div>
                     </div>
