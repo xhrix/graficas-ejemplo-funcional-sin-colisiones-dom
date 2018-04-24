@@ -48,7 +48,9 @@
     .image {
       display: inline-block;
       width: 40px;
+      min-width: 40px;
       height: 40px;
+      min-height: 40px;
       background: #d0d0d0;
       margin-right: 13px;
     }
@@ -87,4 +89,43 @@
   background: #565656;
   position: absolute;
   border-radius: 33px 33px 0px 0px;
+}
+
+.chart-item {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  .chart-item-info {
+    display: flex;
+    align-items: center;
+  }
+  .select-indicator {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #fb6528;
+    border-radius: 50%;
+    align-self: normal;
+    position: relative;
+    &:after {
+      content: '';
+      background: #fb6627;
+      display: block;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      transition: .17s cubic-bezier(0.12, 1.61, 0, 1.21);
+      transform: scale(0);
+    }
+    &.active:after {
+      transform: scale(1);
+    }
+  }
 }

@@ -11,3 +11,7 @@ export const triangle: string;
 export const carets: string;
 export const caret: string;
 export const commonHeader: string;
+export const chartItem: string;
+export const chartItemInfo: string;
+export const selectIndicator: string;
+export const active: string;
