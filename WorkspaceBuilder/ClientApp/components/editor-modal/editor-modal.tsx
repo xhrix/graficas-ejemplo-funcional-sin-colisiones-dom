@@ -9,6 +9,8 @@ interface EditorModalProps {
     selectedCategory?: WorkspaceCategory;
     isChartSelected: (chartMeta: ChartMeta) => boolean;
     onChartClick: (chartMeta: ChartMeta) => void;
+    shown: boolean;
+    onCloseClick: () => void;
 }
 
 export default class EditorModal extends React.Component<EditorModalProps> {
@@ -60,10 +62,14 @@ export default class EditorModal extends React.Component<EditorModalProps> {
     }
 
     render() {
+        const {shown, onCloseClick} = this.props;
+
+        if (!shown) return null;
+
         return (
-            [
-                <div key={'editor-modal-fade'} className={styles.fade}/>,
-                <div key={'editor-modal'} className={styles.container}>
+            <div>
+                {shown ? <div className={styles.fade} onClick={() => onCloseClick()}/> : null}
+                <div className={`${styles.container} ${shown ? styles.shown : ''}`}>
                     <span className={styles.triangle}/>
 
                     <div className={styles.commonHeader}/>
@@ -83,7 +89,8 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                             {this.graphics()}
                         </div>
                     </div>
-                </div>]
+                </div>
+            </div>
         );
     }
 }

@@ -42,6 +42,9 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
     @observable
     private selectedCategory?: WorkspaceCategory;
 
+    @observable
+    private showModal = false;
+
     constructor(props: EditWorkspacePageProps) {
         super(props);
         this.state = {
@@ -117,13 +120,17 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
 
         return (
             <div className={styles.container}>
-                <EditWorkspaceHeader title={`Edit Workspace ${this.props.workspaceId}`}/>
+                <EditWorkspaceHeader
+                    onAddClick={() => this.showModal = !this.showModal}
+                    title={`Edit Workspace ${this.props.workspaceId}`}/>
                 <EditorModal
                     workspaceCategories={this.workspaceCategories}
                     onCategoryClick={this.onCategoryClick}
                     selectedCategory={this.selectedCategory}
                     isChartSelected={this.isSelected}
                     onChartClick={this.toggleSelection}
+                    shown={this.showModal}
+                    onCloseClick={() => this.showModal = false}
                 />
 
 

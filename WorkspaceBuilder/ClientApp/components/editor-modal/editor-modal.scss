@@ -8,10 +8,13 @@
   top: 65px;
   width: 600px;
   max-width: 90%;
-  transition: .2s ease-in-out;
+  transition: 0.2s cubic-bezier(0.74, 0.28, 0.26, 0.92);
   transform: scale(0);
   transform-origin: 90% 0%;
-  transform: scale(1);
+  &.shown {
+    transform: scale(1);
+    transition: 0.2s cubic-bezier(0.43, 0.24, 0, 1.27);
+  }
 }
 
 .fade {
