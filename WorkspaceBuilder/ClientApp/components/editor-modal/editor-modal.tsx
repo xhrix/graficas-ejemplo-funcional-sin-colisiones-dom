@@ -1,17 +1,20 @@
 import * as React from 'react';
 import * as styles from './editor-modal.scss';
 import WorkspaceCategory from "../../models/workspace-category";
+import ChartMeta from "../../models/chart-meta";
 
 interface EditorModalProps {
     workspaceCategories: WorkspaceCategory[];
     onCategoryClick: (category: WorkspaceCategory) => void;
     selectedCategory?: WorkspaceCategory;
+    isChartSelected: (chartMeta: ChartMeta) => boolean;
+    onChartClick: (chartMeta: ChartMeta) => void;
 }
 
 export default class EditorModal extends React.Component<EditorModalProps> {
 
     private graphics() {
-        const {selectedCategory} = this.props;
+        const {selectedCategory, isChartSelected, onChartClick} = this.props;
         if (!selectedCategory) return <div className={styles.content}/>;
 
         return (
@@ -21,8 +24,13 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                         <span className={styles.text}>No hay gráficos para esta categoría</span>
                     </li>
                 ) : selectedCategory.charts.map(chart => (
-                    <li key={`ws-cat-chart-${chart.chartGUID}`} className={styles.item}>
+                    <li
+                        key={`ws-cat-chart-${chart.chartGUID}`}
+                        className={styles.item}
+                        onClick={() => onChartClick(chart)}
+                    >
                         <span className={styles.image}/>
+                        <span>{isChartSelected(chart) ? '(*)' : '( )'}</span>
                         <span className={styles.text}>{chart.url}</span>
                     </li>
                 ))}
