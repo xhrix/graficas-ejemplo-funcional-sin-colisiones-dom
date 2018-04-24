@@ -15,6 +15,21 @@ interface EditorModalProps {
 
 export default class EditorModal extends React.Component<EditorModalProps> {
 
+    private carrets: HTMLDivElement | null;
+
+    private onCategoryClick = (category: WorkspaceCategory) => {
+        this.props.onCategoryClick(category);
+        if (this.carrets) {
+            this.carrets.scrollLeft = this.carrets.offsetWidth;
+        }
+    };
+
+    private onBackToCategoriesClick = () => {
+        if (this.carrets) {
+            this.carrets.scrollLeft = 0;
+        }
+    };
+
     private graphics() {
         const {selectedCategory, isChartSelected, onChartClick} = this.props;
         if (!selectedCategory) return <div className={styles.content}/>;
@@ -51,8 +66,10 @@ export default class EditorModal extends React.Component<EditorModalProps> {
         return (
             <ul className={styles.content}>
                 {workspaceCategories.map(cat => (
-                    <li key={`ws-cat-${cat.id}`} className={styles.item}
-                        onClick={() => onCategoryClick(cat)}>
+                    <li
+                        key={`ws-cat-${cat.id}`}
+                        className={styles.item}
+                        onClick={() => this.onCategoryClick(cat)}>
                         <span className={styles.image}/>
                         <span className={styles.text}>{cat.name}</span>
                     </li>
@@ -74,7 +91,7 @@ export default class EditorModal extends React.Component<EditorModalProps> {
 
                     <div className={styles.commonHeader}/>
 
-                    <div className={styles.carets}>
+                    <div ref={x => this.carrets = x} className={styles.carets}>
                         <div className={styles.caret}>
                             <div className={styles.header}>
                                 <div className={styles.title}>Categorías</div>
@@ -84,6 +101,10 @@ export default class EditorModal extends React.Component<EditorModalProps> {
 
                         <div className={styles.caret}>
                             <div className={styles.header}>
+                                <a onClick={e => e.preventDefault() || this.onBackToCategoriesClick()}
+                                   className={styles.backButton}>
+                                    <i className="material-icons">arrow_back</i>
+                                </a>
                                 <div className={styles.title}>Indicadores</div>
                             </div>
                             {this.graphics()}

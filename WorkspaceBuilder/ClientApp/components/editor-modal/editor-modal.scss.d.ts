@@ -4,6 +4,7 @@ export const container: string;
 export const shown: string;
 export const fade: string;
 export const header: string;
+export const backButton: string;
 export const title: string;
 export const content: string;
 export const item: string;
