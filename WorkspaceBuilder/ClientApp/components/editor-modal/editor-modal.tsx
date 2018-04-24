@@ -4,12 +4,49 @@ import WorkspaceCategory from "../../models/workspace-category";
 
 interface EditorModalProps {
     workspaceCategories: WorkspaceCategory[];
+    onCategoryClick: (category: WorkspaceCategory) => void;
+    selectedCategory?: WorkspaceCategory;
 }
 
 export default class EditorModal extends React.Component<EditorModalProps> {
-    render() {
-        const {workspaceCategories} = this.props;
 
+    private graphics() {
+        const {selectedCategory} = this.props;
+        if (!selectedCategory) return <div className={styles.content}/>;
+
+        return (
+            <ul className={styles.content}>
+                {!selectedCategory.charts.length ? (
+                    <li className={styles.item}>
+                        <span className={styles.text}>No hay gráficos para esta categoría</span>
+                    </li>
+                ) : selectedCategory.charts.map(chart => (
+                    <li key={`ws-cat-chart-${chart.chartGUID}`} className={styles.item}>
+                        <span className={styles.image}/>
+                        <span className={styles.text}>{chart.url}</span>
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+
+    private categories() {
+        const {workspaceCategories, onCategoryClick} = this.props;
+
+        return (
+            <ul className={styles.content}>
+                {workspaceCategories.map(cat => (
+                    <li key={`ws-cat-${cat.id}`} className={styles.item}
+                        onClick={() => onCategoryClick(cat)}>
+                        <span className={styles.image}/>
+                        <span className={styles.text}>{cat.name}</span>
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+
+    render() {
         return (
             <div className={styles.container}>
                 <span className={styles.triangle}/>
@@ -21,30 +58,14 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                         <div className={styles.header}>
                             <div className={styles.title}>Categorías</div>
                         </div>
-
-                        <ul className={styles.content}>
-                            {workspaceCategories.map(cat => (
-                                <li key={`ws-cat-${cat.id}`} className={styles.item}>
-                                    <span className={styles.image}/>
-                                    <span className={styles.text}>{cat.name}</span>
-                                </li>
-                            ))}
-                        </ul>
+                        {this.categories()}
                     </div>
 
                     <div className={styles.caret}>
                         <div className={styles.header}>
                             <div className={styles.title}>Indicadores</div>
                         </div>
-
-                        <ul className={styles.content}>
-                            {workspaceCategories.map(cat => (
-                                <li key={`ws-subcat-${cat.id}`} className={styles.item}>
-                                    <span className={styles.image}/>
-                                    <span className={styles.text}>{cat.name}</span>
-                                </li>
-                            ))}
-                        </ul>
+                        {this.graphics()}
                     </div>
                 </div>
             </div>

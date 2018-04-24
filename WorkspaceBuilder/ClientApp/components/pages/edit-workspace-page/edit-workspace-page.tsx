@@ -22,16 +22,26 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
     @observable
     private workspaceCategories: WorkspaceCategory[] = [];
 
+    @observable
+    private selectedCategory?: WorkspaceCategory;
+
     async componentDidMount() {
         this.workspace = await WorkspaceService.getById(this.props.workspaceId);
         this.workspaceCategories = await WorkspaceCategoryService.getAll();
     }
 
+    private onCategoryClick = (category: WorkspaceCategory) => {
+        this.selectedCategory = category;
+    };
+
     render() {
         return (
             <div className={styles.container}>
                 <EditWorkspaceHeader title={`Edit Workspace ${this.props.workspaceId}`}/>
-                <EditorModal workspaceCategories={this.workspaceCategories}/>
+                <EditorModal
+                    workspaceCategories={this.workspaceCategories}
+                    onCategoryClick={this.onCategoryClick}
+                    selectedCategory={this.selectedCategory}/>
                 <div>
                     {!this.workspace ? 'Not found' : this.workspace.charts.map(chart => (
                         <div key={`editor-chart-${chart.chartGUID}`}>{chart.chartGUID}</div>
