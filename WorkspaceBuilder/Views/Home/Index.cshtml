@@ -4,8 +4,41 @@
 
 <div id="react-app">Loading...</div>
 
-@section scripts {
+<noscript>
+    <div class='global-noscript-block'>
+        <i class="material-icons">&#xE000;</i>
+        <span>
+            Javascript es necesario para utilizar la aplicación.
+        </span>
+    </p>
+</noscript>
+<style>
+    .global-noscript-block {
+        position: absolute;
+        background: rgb(49, 49, 49);
+        color: rgb(209, 209, 209);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        z-index: 99;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        -webkit-user-select: none;
+        text-align: center;
+        font-size: 1.3em;
+    }
+    .global-noscript-block i {
+        font-size: 60px;
+        display: block;
+        margin-bottom: 100px;
+    }
+</style>
 
+@section scripts {
     <script src="~/dist/main.js" asp-append-version="true"></script>
     <link rel="stylesheet" type="text/css" href="~/dist/main.css" asp-append-version="true" />
 }
