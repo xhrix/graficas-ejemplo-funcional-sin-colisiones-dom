@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Header from "../../header/header";
-import * as styles from '../edit-workspace-page/workspaces-page.scss';
+import * as styles from './workspaces-page.scss';
 import {WorkspaceMocks} from "../../../mocks/workspace-mocks";
 import WorkspacePreview from "../../workspace-preview/workspace-preview";
 
