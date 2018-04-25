@@ -15,11 +15,17 @@
   &:hover {
     background: $workspace-preview-bg-color-hover;
   }
+  @media only screen and (max-width: 600px) {
+    margin: 10px;
+    width: 140px;
+    height: 140px;
+    padding: 16px 6px 5px 6px;
+  }
 }
 
 .preview-img {
   width: 80px;
-  height: 90px;
+  height: 80px;
   display: inline-block;
   background-size: contain;
   background-position: 50%;
