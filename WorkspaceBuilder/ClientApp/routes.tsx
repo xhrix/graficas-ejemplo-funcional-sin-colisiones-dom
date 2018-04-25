@@ -14,6 +14,6 @@ export const routes = <Layout>
         <Route exact path='/charts' component={ChartsRoot}/>
         <Route exact path='/playground' component={PlaygroundRoot}/>
         <Route exact path='/charts/:id' component={ChartsRoot}/>
-        <Redirect to="/charts"/>
+        <Redirect to="/workspaces"/>
     </Switch>
 </Layout>;
