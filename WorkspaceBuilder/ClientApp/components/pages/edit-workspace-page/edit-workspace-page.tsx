@@ -16,6 +16,7 @@ import {
 } from "../../../lib/components/react-sortable-savable-grid/ReactGridLayoutUtil";
 import ChartService from "../../../services/chart-service";
 import * as uuid from 'uuid/v4';
+import * as mainButtonStyle from "../../styles/buttons/main-action-button.scss";
 
 interface EditWorkspacePageProps {
     workspaceId: number;
@@ -121,7 +122,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
         return (
             <div className={styles.container}>
                 <EditWorkspaceHeader
-                    onAddClick={() => this.showModal = !this.showModal}
+                    onEditClick={() => console.log('TODO: Make the title editable.')}
                     title={`Edit Workspace ${this.props.workspaceId}`}/>
                 <EditorModal
                     workspaceCategories={this.workspaceCategories}
@@ -148,6 +149,10 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                     {layouts.map((layout, i) => this.gridItem(layout, i))}
                 </ResponsiveReactGridLayout>
 
+                <button onClick={() => this.showModal = !this.showModal} className={mainButtonStyle.container}
+                        type="button">
+                    <i className="material-icons">add</i>
+                </button>
             </div>
         );
     }
