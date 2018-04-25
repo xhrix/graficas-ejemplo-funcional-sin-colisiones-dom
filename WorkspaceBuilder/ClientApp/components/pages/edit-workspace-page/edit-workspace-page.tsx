@@ -1,31 +1,51 @@
 import * as React from 'react';
-import * as styles from './LayoutBuilder.scss';
-import ChartMeta from "../../models/ChartMeta";
-import ChartsService from "../../services/ChartsService";
-import * as availablesStyles from './AvailableItems/AvailableItems.scss';
+import * as styles from '../workspaces-page/workspaces-page.scss';
+import EditWorkspaceHeader from "./edit-workspace-header/edit-workspace-header";
+import EditorModal from "../../editor-modal/editor-modal";
+import Workspace from "../../../models/workspace";
+import WorkspaceService from "../../../services/workspace-service";
+import {observer} from "mobx-react";
+import {observable} from "mobx";
+import WorkspaceCategory from "../../../models/workspace-category";
+import WorkspaceCategoryService from "../../../services/workspace-category-service";
+import ChartMeta from "../../../models/chart-meta";
+import {Breakpoints, Layout, Layouts, Responsive, WidthProvider} from "react-grid-layout";
 import {
     appendLayout,
-    emptyNormalizedLayouts,
-    removeLayoutByKey
-} from "../../lib/components/react-sortable-savable-grid/ReactGridLayoutUtil";
-import {Breakpoints, Layout, Layouts, Responsive, WidthProvider} from "react-grid-layout";
+    emptyNormalizedLayouts, removeLayoutByKey
+} from "../../../lib/components/react-sortable-savable-grid/ReactGridLayoutUtil";
+import ChartService from "../../../services/chart-service";
 import * as uuid from 'uuid/v4';
 
-const ResponsiveReactGridLayout = WidthProvider(Responsive);
-
-interface Props {
+interface EditWorkspacePageProps {
+    workspaceId: number;
 }
 
-interface State {
+interface EditWorkspacePageState {
     availableCharts: ChartMeta[];
     selectedCharts: ChartMeta[];
     layouts: Layouts;
     breakpoint: Breakpoints;
 }
 
-export default class LayoutBuilder extends React.Component<Props, State> {
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-    constructor(props: Props) {
+@observer
+export default class EditWorkspacePage extends React.Component<EditWorkspacePageProps, EditWorkspacePageState> {
+
+    @observable
+    private workspace?: Workspace;
+
+    @observable
+    private workspaceCategories: WorkspaceCategory[] = [];
+
+    @observable
+    private selectedCategory?: WorkspaceCategory;
+
+    @observable
+    private showModal = false;
+
+    constructor(props: EditWorkspacePageProps) {
         super(props);
         this.state = {
             availableCharts: [],
@@ -37,12 +57,18 @@ export default class LayoutBuilder extends React.Component<Props, State> {
 
     async componentDidMount() {
         this.setState({
-            availableCharts: await ChartsService.getAvailableCharts()
+            availableCharts: await ChartService.getAvailableCharts()
         });
+        this.workspace = await WorkspaceService.getById(this.props.workspaceId);
+        this.workspaceCategories = await WorkspaceCategoryService.getAll();
     }
 
+    private onCategoryClick = (category: WorkspaceCategory) => {
+        this.selectedCategory = category;
+    };
+
     private isSelected = (value: ChartMeta) => {
-        return !!(this.state.selectedCharts.find(x => value.url === x.url));
+        return !!(this.state.selectedCharts.find(x => value.chartGUID === x.chartGUID));
     };
 
     private toggleSelection = (value: ChartMeta) => {
@@ -89,31 +115,29 @@ export default class LayoutBuilder extends React.Component<Props, State> {
         </div>;
     };
 
-    public render() {
+    render() {
         const layouts: Layout[] = (this.state.layouts as any)[this.state.breakpoint] ? (this.state.layouts as any)[this.state.breakpoint] : [];
+
         return (
             <div className={styles.container}>
-                <h3>{this.state.breakpoint}</h3>
-                <div className="AvailableItems">
-                    <ul className={availablesStyles.previews}>
-                        {this.state.availableCharts.map((chart, i) => (
-                            <li className={availablesStyles.preview} key={`available-item-${i}`}>
-                                <label>
-                                    <input type='checkbox'
-                                           checked={this.isSelected(chart)}
-                                           onChange={() => this.toggleSelection(chart)}
-                                    />
-                                    <span className={availablesStyles.previewImg}
-                                          style={{backgroundImage: `url('${chart.thumbnailUrl}')`}}>
-                                    <span>{chart.url}</span>
-                                </span>
-                                </label>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <EditWorkspaceHeader
+                    onAddClick={() => this.showModal = !this.showModal}
+                    title={`Edit Workspace ${this.props.workspaceId}`}/>
+                <EditorModal
+                    workspaceCategories={this.workspaceCategories}
+                    onCategoryClick={this.onCategoryClick}
+                    selectedCategory={this.selectedCategory}
+                    isChartSelected={this.isSelected}
+                    onChartClick={this.toggleSelection}
+                    shown={this.showModal}
+                    onCloseClick={() => this.showModal = false}
+                />
 
-                {/* Sortable charts */}
+
+                {/*{!this.workspace ? <div>'Not found'</div> : this.workspace.charts.map(chart => (*/}
+                {/*<div key={`editor-chart-${chart.chartGUID}`}>{chart.chartGUID}</div>*/}
+                {/*))}*/}
+
                 <ResponsiveReactGridLayout
                     onLayoutChange={this.onLayoutChange}
                     rowHeight={30}
@@ -123,6 +147,7 @@ export default class LayoutBuilder extends React.Component<Props, State> {
                 >
                     {layouts.map((layout, i) => this.gridItem(layout, i))}
                 </ResponsiveReactGridLayout>
+
             </div>
         );
     }

@@ -1,0 +1,39 @@
+@import '../styles/base/include';
+
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: $workspace-preview-bg-color;
+  margin: 25px 30px;
+  cursor: pointer;
+  padding: 28px 7px 6px 7px;
+  width: 180px;
+  height: 170px;
+  text-decoration: none;
+  &:hover {
+    background: $workspace-preview-bg-color-hover;
+  }
+  @media only screen and (max-width: 600px) {
+    margin: 10px;
+    width: 140px;
+    height: 140px;
+    padding: 16px 6px 5px 6px;
+  }
+}
+
+.preview-img {
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.name {
+  color: $workspace-name-color;
+  font-size: 13px;
+  padding: 5px 8px;
+}

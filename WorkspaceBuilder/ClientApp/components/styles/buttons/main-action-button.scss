@@ -1,0 +1,17 @@
+@import '../base/include';
+
+.container {
+  background: #fb6522;
+  border: none;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  position: fixed;
+  bottom: 77px;
+  right: 36px;
+  @include z-depth-2dp();
+  i {
+    color: white;
+    font-size: 3.3em;
+  }
+}

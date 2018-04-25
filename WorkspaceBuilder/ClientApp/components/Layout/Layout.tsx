@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavMenu } from './NavMenu';
+import * as styles from './Layout.scss';
 
 export interface LayoutProps {
     children?: React.ReactNode;
@@ -7,8 +7,7 @@ export interface LayoutProps {
 
 export class Layout extends React.Component<LayoutProps, {}> {
     public render() {
-        return <div className='container-fluid'>
-            <NavMenu />
+        return <div className={styles.container}>
             {this.props.children}
         </div>;
     }
