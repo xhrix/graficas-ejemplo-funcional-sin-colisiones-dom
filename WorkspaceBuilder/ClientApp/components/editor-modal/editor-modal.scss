@@ -57,9 +57,25 @@
       height: 100%;
       overflow: scroll;
       -webkit-overflow-scrolling: touch;
+      position: relative;
+      .context-back-arrow {
+        position: absolute;
+        z-index: 10;
+        bottom: 104px;
+        right: 14px;
+        background: #656565;
+        color: white;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include z-depth-4dp();
+      }
     }
     .row-body-search {
-      min-height: 85px;
+      min-height: 60px;
       input {
         border: none;
         border-radius: 0;

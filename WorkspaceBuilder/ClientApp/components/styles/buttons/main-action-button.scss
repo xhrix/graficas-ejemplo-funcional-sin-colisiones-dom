@@ -8,10 +8,10 @@
   height: 72px;
   position: fixed;
   z-index: 500;
-  bottom: 77px;
+  bottom: 44px;
   right: 36px;
   transition: .2s ease-in-out;
-  @include z-depth-6dp();
+  @include z-depth-4dp();
   &:after {
     content: '';
     left: 24px;

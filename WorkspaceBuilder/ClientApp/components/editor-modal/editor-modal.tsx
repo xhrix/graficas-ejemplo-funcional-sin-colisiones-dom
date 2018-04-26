@@ -143,6 +143,8 @@ export default class EditorModal extends React.Component<EditorModalProps> {
 
                             {/*Row 2.2: Body Content*/}
                             <div className={styles.rowBodyContent}>
+                                <a onClick={e => e.preventDefault() || this.onBackToCategoriesClick()}
+                                   className={styles.contextBackArrow}><i className="material-icons">arrow_back</i></a>
                                 {this.graphics()}
                             </div>
 

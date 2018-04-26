@@ -9,6 +9,7 @@ export const rowBodyHeaderControls: string;
 export const rowBodyHeaderBackButton: string;
 export const rowBodyHeaderTitle: string;
 export const rowBodyContent: string;
+export const contextBackArrow: string;
 export const rowBodySearch: string;
 export const fade: string;
 export const list: string;
