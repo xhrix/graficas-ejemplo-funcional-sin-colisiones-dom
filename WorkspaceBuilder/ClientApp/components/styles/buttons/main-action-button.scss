@@ -21,7 +21,7 @@
     display: block;
     position: absolute;
     top: 33px;
-    transition: .2s ease-in-out 0s, transform .3s cubic-bezier(0.71, -0.44, 0.28, 1.46) .1s;
+    transition: .2s ease-in-out 0s, transform .2s cubic-bezier(0.71, -0.44, 0.28, 1.46);
     transform: rotate(0deg);
   }
   &:before {
@@ -30,17 +30,9 @@
   }
 
   &.secondary-side-button {
-    bottom: 50%;
-    width: 56px;
-    height: 56px;
     background: #656565;
-    right: 15px;
     &:after {
-      left: 18px;
-      top: 26px;
-      height: 3px;
       transform: rotate(45deg);
-      width: 20px;
     }
     &:before {
       @extend :after;
