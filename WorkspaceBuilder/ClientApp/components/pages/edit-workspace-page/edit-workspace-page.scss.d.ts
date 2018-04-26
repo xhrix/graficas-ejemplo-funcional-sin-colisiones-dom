@@ -7,3 +7,4 @@ export const removeGridItem: string;
 export const skeleton: string;
 export const skeletonLine: string;
 export const skeletonShineLines: string;
+export const emptyWorkspace: string;

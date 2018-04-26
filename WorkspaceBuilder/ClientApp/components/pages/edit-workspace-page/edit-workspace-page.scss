@@ -1,5 +1,5 @@
 .container {
-  _: _;
+  height: 100%;
 }
 
 .grid-item {
@@ -84,4 +84,17 @@ $avatar-offset: 52+16;
       background-position: 240px;
     }
   }
+}
+
+.empty-workspace {
+  height: 100%;
+  padding: 30px;
+  padding-bottom: 110px;
+  text-align: center;
+  color: #bfbcbc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: lighter;
+  font-size: 1.5em;
 }
