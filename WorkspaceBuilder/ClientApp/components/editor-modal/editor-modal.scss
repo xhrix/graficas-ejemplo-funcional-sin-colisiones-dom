@@ -155,22 +155,26 @@
 
 .fancy-enter {
   @extend .fancy;
-  transform: translateY(100%);
+  opacity: 0.01;
+  //transform: translateY(100%);
 }
 
 .fancy-enter-active {
   @extend .fancy;
-  transform: translateY(0%);
+  opacity: 1;
+  //transform: translateY(0%);
 }
 
 .fancy-exit {
   @extend .fancy;
-  transform: translateY(0%);
+  opacity: 1;
+  //transform: translateY(0%);
 }
 
 .fancy-exit-active {
   @extend .fancy;
-  transform: translateY(100%);
+  opacity: 0.01;
+  //transform: translateY(100%);
 }
 
 //
