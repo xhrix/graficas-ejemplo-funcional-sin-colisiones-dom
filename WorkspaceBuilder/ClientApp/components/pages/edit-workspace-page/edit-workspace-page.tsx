@@ -134,11 +134,6 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                     onCloseClick={() => this.showModal = false}
                 />
 
-
-                {/*{!this.workspace ? <div>'Not found'</div> : this.workspace.charts.map(chart => (*/}
-                {/*<div key={`editor-chart-${chart.chartGUID}`}>{chart.chartGUID}</div>*/}
-                {/*))}*/}
-
                 <ResponsiveReactGridLayout
                     onLayoutChange={this.onLayoutChange}
                     rowHeight={30}
