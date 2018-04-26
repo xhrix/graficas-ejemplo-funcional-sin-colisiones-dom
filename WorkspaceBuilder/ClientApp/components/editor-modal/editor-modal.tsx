@@ -134,11 +134,14 @@ export default class EditorModal extends React.Component<EditorModalProps> {
 
                             {/*Row 2.1: Body Header*/}
                             <div className={styles.rowBodyHeader}>
-                                <a onClick={e => e.preventDefault() || this.onBackToCategoriesClick()}
-                                   className={styles.rowBodyHeaderBackButton}>
-                                    <i className="material-icons">arrow_back</i>
-                                </a>
+                                <div className={styles.rowBodyHeaderControls}>
+                                    <a onClick={e => e.preventDefault() || this.onBackToCategoriesClick()}
+                                       className={styles.rowBodyHeaderBackButton}>
+                                        <i className="material-icons">arrow_back</i>
+                                    </a>
+                                </div>
                                 <span className={styles.rowBodyHeaderTitle}>Indicadores</span>
+                                <div className={styles.rowBodyHeaderControls}/>
                             </div>
 
                             {/*Row 2.2: Body Content*/}

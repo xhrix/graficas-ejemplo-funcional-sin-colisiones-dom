@@ -40,11 +40,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      .row-body-header-title {
-        _: _;
+      .row-body-header-controls {
+        margin: 0 15px;
+        min-width: 50px;
+        min-height: 10px;
+        .row-body-header-back-button {
+          display: flex;
+        }
       }
-      .row-body-header-back-button {
-        _: _;
+      .row-body-header-title {
+        width: 100%;
+        text-align: center;
       }
     }
     .row-body-content {
