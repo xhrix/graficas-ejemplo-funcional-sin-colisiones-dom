@@ -17,3 +17,8 @@ export const selectIndicator: string;
 export const selectIndicatorActive: string;
 export const listItemImage: string;
 export const listItemText: string;
+export const fancy: string;
+export const fancyEnter: string;
+export const fancyEnterActive: string;
+export const fancyExit: string;
+export const fancyExitActive: string;

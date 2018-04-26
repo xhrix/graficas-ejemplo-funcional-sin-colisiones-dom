@@ -17,6 +17,9 @@ import {
 import ChartService from "../../../services/chart-service";
 import * as uuid from 'uuid/v4';
 import * as mainButtonStyle from "../../styles/buttons/main-action-button.scss";
+import {CSSTransition} from "react-transition-group";
+import {CSSTransitionClassNames} from "react-transition-group/CSSTransition";
+import * as fancyStyles from '../../editor-modal/editor-modal.scss';
 
 interface EditWorkspacePageProps {
     workspaceId: number;
@@ -30,6 +33,13 @@ interface EditWorkspacePageState {
 }
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
+
+const fancyCssClasses: CSSTransitionClassNames = {
+    enter: fancyStyles.fancyEnter,
+    enterActive: fancyStyles.fancyEnterActive,
+    exit: fancyStyles.fancyExit,
+    exitActive: fancyStyles.fancyExitActive,
+};
 
 @observer
 export default class EditWorkspacePage extends React.Component<EditWorkspacePageProps, EditWorkspacePageState> {
@@ -125,15 +135,21 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                     onEditClick={() => console.log('TODO: Make the title editable.')}
                     title={`Edit Workspace ${this.props.workspaceId}`}/>
 
-                <EditorModal
-                    workspaceCategories={this.workspaceCategories}
-                    onCategoryClick={this.onCategoryClick}
-                    selectedCategory={this.selectedCategory}
-                    isChartSelected={this.isSelected}
-                    onChartClick={this.toggleSelection}
-                    shown={this.showModal}
-                    onCloseClick={() => this.showModal = false}
-                />
+                <CSSTransition
+                    in={this.showModal}
+                    timeout={200}
+                    classNames={fancyCssClasses}
+                    unmountOnExit
+                >
+                    <EditorModal
+                        workspaceCategories={this.workspaceCategories}
+                        onCategoryClick={this.onCategoryClick}
+                        selectedCategory={this.selectedCategory}
+                        isChartSelected={this.isSelected}
+                        onChartClick={this.toggleSelection}
+                        onCloseClick={() => this.showModal = false}
+                    />
+                </CSSTransition>
 
                 <ResponsiveReactGridLayout
                     onLayoutChange={this.onLayoutChange}

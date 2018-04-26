@@ -127,6 +127,36 @@
   }
 }
 
+.fancy {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  transition: all 200ms ease-out;
+}
+
+.fancy-enter {
+  @extend .fancy;
+  transform: translateY(100%);
+}
+
+.fancy-enter-active {
+  @extend .fancy;
+  transform: translateY(0%);
+}
+
+.fancy-exit {
+  @extend .fancy;
+  transform: translateY(0%);
+}
+
+.fancy-exit-active {
+  @extend .fancy;
+  transform: translateY(100%);
+}
+
 //
 //.header {
 //  width: 100%;

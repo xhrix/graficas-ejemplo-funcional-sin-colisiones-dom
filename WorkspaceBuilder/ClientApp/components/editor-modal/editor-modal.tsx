@@ -12,7 +12,6 @@ interface EditorModalProps {
     selectedCategory?: WorkspaceCategory;
     isChartSelected: (chartMeta: ChartMeta) => boolean;
     onChartClick: (chartMeta: ChartMeta) => void;
-    shown: boolean;
     onCloseClick: () => void;
 }
 
@@ -91,14 +90,12 @@ export default class EditorModal extends React.Component<EditorModalProps> {
     }
 
     render() {
-        const {shown, onCloseClick} = this.props;
-
-        if (!shown) return null;
+        const {onCloseClick} = this.props;
 
         return (
             <div>
-                {shown ? <div className={styles.fade} onClick={() => onCloseClick()}/> : null}
-                <div className={`${styles.container} ${shown ? `styles.shown` : ''}`}>
+                {/*{shown ? <div className={styles.fade} onClick={() => onCloseClick()}/> : null}*/}
+                <div className={styles.container}>
 
                     {/*Row 1: Context arrow*/}
                     <div className={`${styles.rowContextArrow}`}>
