@@ -54,7 +54,17 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
     private selectedCategory?: WorkspaceCategory;
 
     @observable
-    private showModal = false;
+    private _showModal = false;
+
+    private get showModal() {
+        return this._showModal;
+    }
+
+    private set showModal(show: boolean) {
+        // Prevent body scroll when modal is shown to prevent flickering.
+        document.body.style.overflow = show ? 'hidden' : '';
+        this._showModal = show;
+    }
 
     constructor(props: EditWorkspacePageProps) {
         super(props);
