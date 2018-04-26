@@ -42,30 +42,31 @@ export default class EditorModal extends React.Component<EditorModalProps> {
 
     private graphics() {
         const {selectedCategory, isChartSelected, onChartClick} = this.props;
-        if (!selectedCategory) return <div className={styles.content}/>;
+        if (!selectedCategory) return <div className={`styles.content`}/>;
 
         const search = this.graphicsSearch.toLocaleLowerCase();
         const filteredCharts = search === '' ? selectedCategory.charts : selectedCategory.charts.filter(x => x.name.toLocaleLowerCase().indexOf(search) !== -1);
 
         return (
-            <ul className={styles.content}>
+            <ul className={styles.list}>
                 {!selectedCategory.charts.length ? (
-                    <li className={styles.item}>
-                        <span className={styles.text}>No hay gráficos para esta categoría</span>
+                    <li className={styles.listItem}>
+                        <span className={styles.listItemText}>No hay gráficos para esta categoría</span>
                     </li>
                 ) : filteredCharts.map(chart => (
                     <li
                         key={`ws-cat-chart-${chart.chartGUID}`}
-                        className={styles.item}
+                        className={styles.listItem}
                         onClick={() => onChartClick(chart)}
                     >
-                        <div className={styles.chartItem}>
-                            <div className={styles.chartItemInfo}>
-                                <span className={styles.image} style={{backgroundImage: `url(${chart.thumbnailUrl})`}}/>
-                                <span className={styles.text}>{chart.name}</span>
+                        <div className={`styles.chartItem`}>
+                            <div className={`styles.chartItemInfo`}>
+                                <span className={`styles.image`}
+                                      style={{backgroundImage: `url(${chart.thumbnailUrl})`}}/>
+                                <span className={`styles.text`}>{chart.name}</span>
                             </div>
                             <span
-                                className={`${styles.selectIndicator} ${isChartSelected(chart) ? styles.active : ''}`}/>
+                                className={`${`styles.selectIndicator`} ${isChartSelected(chart) ? `styles.active` : ''}`}/>
                         </div>
                     </li>
                 ))}
@@ -80,14 +81,14 @@ export default class EditorModal extends React.Component<EditorModalProps> {
         const filteredCategories = search === '' ? workspaceCategories : workspaceCategories.filter(x => x.name.toLocaleLowerCase().indexOf(search) !== -1);
 
         return (
-            <ul className={styles.content}>
+            <ul className={styles.list}>
                 {filteredCategories.map(cat => (
                     <li
                         key={`ws-cat-${cat.id}`}
-                        className={styles.item}
+                        className={styles.listItem}
                         onClick={() => this.onCategoryClick(cat)}>
-                        <span className={styles.image} style={{backgroundImage: `url(${cat.thumbnailUrl})`}}/>
-                        <span className={styles.text}>{cat.name}</span>
+                        <span className={styles.listItemImage} style={{backgroundImage: `url(${cat.thumbnailUrl})`}}/>
+                        <span className={styles.listItemText}>{cat.name}</span>
                     </li>
                 ))}
             </ul>
@@ -102,33 +103,60 @@ export default class EditorModal extends React.Component<EditorModalProps> {
         return (
             <div>
                 {shown ? <div className={styles.fade} onClick={() => onCloseClick()}/> : null}
-                <div className={`${styles.container} ${shown ? styles.shown : ''}`}>
-                    <span className={styles.triangle}/>
+                <div className={`${styles.container} ${shown ? `styles.shown` : ''}`}>
 
-                    <div className={styles.commonHeader}/>
+                    {/*Row 1: Context arrow*/}
+                    <div className={`${styles.rowContextArrow}`}>
+                        <span className={`${`styles.triangle`}`}/>
+                    </div>
 
-                    <div ref={x => this.carrets = x} className={styles.carets}>
+
+                    {/*Row 2: Body*/}
+                    <div ref={x => this.carrets = x} className={`${`styles.carets`} ${styles.rowBody}`}>
+
+                        {/*First caret*/}
                         <div className={styles.caret}>
-                            <div className={styles.header}>
-                                <div className={styles.title}>Categorías</div>
+
+                            {/*Row 2.1: Body Header*/}
+                            <div className={styles.rowBodyHeader}>
+                                <span className={styles.rowBodyHeaderTitle}>Categorías</span>
                             </div>
-                            <input value={this.search} onChange={e => this.search = e.currentTarget.value}
-                                   className={styles.searchInput} type="text" placeholder={`Buscar...`}/>
-                            {this.categories()}
+
+                            {/*Row 2.2: Body Content*/}
+                            <div className={styles.rowBodyContent}>
+                                {this.categories()}
+                            </div>
+
+                            {/*Row 2.3: Body Search*/}
+                            <div className={styles.rowBodySearch}>
+                                <input value={this.search} onChange={e => this.search = e.currentTarget.value}
+                                       type="text" placeholder={`Buscar...`}/>
+                            </div>
                         </div>
 
+                        {/*Second caret*/}
                         <div className={styles.caret}>
-                            <div className={styles.header}>
+
+                            {/*Row 2.1: Body Header*/}
+                            <div className={styles.rowBodyHeader}>
                                 <a onClick={e => e.preventDefault() || this.onBackToCategoriesClick()}
-                                   className={styles.backButton}>
+                                   className={styles.rowBodyHeaderBackButton}>
                                     <i className="material-icons">arrow_back</i>
                                 </a>
-                                <div className={styles.title}>Indicadores</div>
+                                <span className={styles.rowBodyHeaderTitle}>Indicadores</span>
                             </div>
-                            <input value={this.graphicsSearch}
-                                   onChange={e => this.graphicsSearch = e.currentTarget.value}
-                                   className={styles.searchInput} type="text" placeholder={`Buscar...`}/>
-                            {this.graphics()}
+
+                            {/*Row 2.2: Body Content*/}
+                            <div className={styles.rowBodyContent}>
+                                {this.graphics()}
+                            </div>
+
+                            {/*Row 2.3: Body Search*/}
+                            <div className={styles.rowBodySearch}>
+                                <input value={this.graphicsSearch}
+                                       onChange={e => this.graphicsSearch = e.currentTarget.value}
+                                       type="text" placeholder={`Buscar...`}/>
+                            </div>
                         </div>
                     </div>
                 </div>

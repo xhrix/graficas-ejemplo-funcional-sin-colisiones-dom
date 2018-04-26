@@ -124,6 +124,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                 <EditWorkspaceHeader
                     onEditClick={() => console.log('TODO: Make the title editable.')}
                     title={`Edit Workspace ${this.props.workspaceId}`}/>
+
                 <EditorModal
                     workspaceCategories={this.workspaceCategories}
                     onCategoryClick={this.onCategoryClick}
