@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from '../workspaces-page/workspaces-page.scss';
+import * as styles from './edit-workspace-page.scss';
 import EditWorkspaceHeader from "./edit-workspace-header/edit-workspace-header";
 import EditorModal from "../../editor-modal/editor-modal";
 import Workspace from "../../../models/workspace";
@@ -161,15 +161,21 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                     />
                 </CSSTransition>
 
-                <ResponsiveReactGridLayout
-                    onLayoutChange={this.onLayoutChange}
-                    rowHeight={30}
-                    cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
-                    layouts={this.state.layouts}
-                    onBreakpointChange={this.onBreakpointChange}
-                >
-                    {layouts.map((layout, i) => this.gridItem(layout, i))}
-                </ResponsiveReactGridLayout>
+                {layouts.length ? (
+                    <ResponsiveReactGridLayout
+                        onLayoutChange={this.onLayoutChange}
+                        rowHeight={30}
+                        cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
+                        layouts={this.state.layouts}
+                        onBreakpointChange={this.onBreakpointChange}
+                    >
+                        {layouts.map((layout, i) => this.gridItem(layout, i))}
+                    </ResponsiveReactGridLayout>
+                ) : (
+                    <div>
+                        Puedes agregar gráficas dando click en "+".
+                    </div>
+                )}
 
                 <div onClick={() => this.showModal = !this.showModal}
                      className={`${mainButtonStyle.container} ${this.showModal ? mainButtonStyle.secondarySideButton : ''}`}/>
