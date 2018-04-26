@@ -145,10 +145,8 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                     {layouts.map((layout, i) => this.gridItem(layout, i))}
                 </ResponsiveReactGridLayout>
 
-                <button onClick={() => this.showModal = !this.showModal} className={mainButtonStyle.container}
-                        type="button">
-                    <i className="material-icons">add</i>
-                </button>
+                <div onClick={() => this.showModal = !this.showModal}
+                     className={`${mainButtonStyle.container} ${this.showModal ? mainButtonStyle.secondarySideButton : ''}`}/>
             </div>
         );
     }

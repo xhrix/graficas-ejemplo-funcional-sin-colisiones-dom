@@ -7,11 +7,44 @@
   width: 72px;
   height: 72px;
   position: fixed;
+  z-index: 500;
   bottom: 77px;
   right: 36px;
-  @include z-depth-2dp();
-  i {
-    color: white;
-    font-size: 3.3em;
+  transition: .2s ease-in-out;
+  @include z-depth-6dp();
+  &:after {
+    content: '';
+    left: 24px;
+    width: 25px;
+    height: 4px;
+    background: white;
+    display: block;
+    position: absolute;
+    top: 33px;
+    transition: .2s ease-in-out 0s, transform .3s cubic-bezier(0.71, -0.44, 0.28, 1.46) .1s;
+    transform: rotate(0deg);
+  }
+  &:before {
+    @extend :after;
+    transform: rotate(90deg);
+  }
+
+  &.secondary-side-button {
+    bottom: 50%;
+    width: 56px;
+    height: 56px;
+    background: #656565;
+    right: 15px;
+    &:after {
+      left: 18px;
+      top: 26px;
+      height: 3px;
+      transform: rotate(-45deg);
+      width: 20px;
+    }
+    &:before {
+      @extend :after;
+      transform: rotate(45deg);
+    }
   }
 }
