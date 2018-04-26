@@ -59,15 +59,10 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                         className={styles.listItem}
                         onClick={() => onChartClick(chart)}
                     >
-                        <div className={`styles.chartItem`}>
-                            <div className={`styles.chartItemInfo`}>
-                                <span className={`styles.image`}
-                                      style={{backgroundImage: `url(${chart.thumbnailUrl})`}}/>
-                                <span className={`styles.text`}>{chart.name}</span>
-                            </div>
-                            <span
-                                className={`${`styles.selectIndicator`} ${isChartSelected(chart) ? `styles.active` : ''}`}/>
-                        </div>
+                        <span
+                            className={isChartSelected(chart) ? styles.selectIndicatorActive : styles.selectIndicator}/>
+                        <span className={styles.listItemImage} style={{backgroundImage: `url(${chart.thumbnailUrl})`}}/>
+                        <span className={styles.listItemText}>{chart.name}</span>
                     </li>
                 ))}
             </ul>

@@ -12,5 +12,7 @@ export const rowBodySearch: string;
 export const fade: string;
 export const list: string;
 export const listItem: string;
+export const selectIndicator: string;
+export const selectIndicatorActive: string;
 export const listItemImage: string;
 export const listItemText: string;
