@@ -112,15 +112,15 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                                 <span className={styles.rowBodyHeaderTitle}>Categorías</span>
                             </div>
 
-                            {/*Row 2.2: Body Content*/}
-                            <div className={styles.rowBodyContent}>
-                                {this.categories()}
-                            </div>
-
                             {/*Row 2.3: Body Search*/}
                             <div className={styles.rowBodySearch}>
                                 <input value={this.search} onChange={e => this.search = e.currentTarget.value}
                                        type="text" placeholder={`Buscar...`}/>
+                            </div>
+
+                            {/*Row 2.2: Body Content*/}
+                            <div className={styles.rowBodyContent}>
+                                {this.categories()}
                             </div>
                         </div>
 
@@ -139,18 +139,18 @@ export default class EditorModal extends React.Component<EditorModalProps> {
                                 <div className={styles.rowBodyHeaderControls}/>
                             </div>
 
-                            {/*Row 2.2: Body Content*/}
-                            <div className={styles.rowBodyContent}>
-                                <a onClick={e => e.preventDefault() || this.onBackToCategoriesClick()}
-                                   className={styles.contextBackArrow}><i className="material-icons">arrow_back</i></a>
-                                {this.graphics()}
-                            </div>
-
                             {/*Row 2.3: Body Search*/}
                             <div className={styles.rowBodySearch}>
                                 <input value={this.graphicsSearch}
                                        onChange={e => this.graphicsSearch = e.currentTarget.value}
                                        type="text" placeholder={`Buscar...`}/>
+                            </div>
+
+                            {/*Row 2.2: Body Content*/}
+                            <div className={styles.rowBodyContent}>
+                                <a onClick={e => e.preventDefault() || this.onBackToCategoriesClick()}
+                                   className={styles.contextBackArrow}><i className="material-icons">arrow_back</i></a>
+                                {this.graphics()}
                             </div>
                         </div>
                     </div>
