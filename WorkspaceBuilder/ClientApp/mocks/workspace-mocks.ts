@@ -1,77 +1,19 @@
 import Workspace from "../models/workspace";
 import {ChartMetaMocks} from "./chart-meta-mocks";
+import {LayoutsWithThreeItemsMock} from "./layouts-mocks";
 
+const ChartMetas = ChartMetaMocks.slice(0, 3);
 export const WorkspaceMocks: Workspace[] = [
-    {
-        id: 1,
-        name: 'Workspace One',
-        thumbnailUrl: '/images/demo-charts-preview-1.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 2,
-        name: 'Workspace Two',
-        thumbnailUrl: '/images/demo-charts-preview-2.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 3,
-        name: 'Workspace Three',
-        thumbnailUrl: '/images/demo-charts-preview-3.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 4,
-        name: 'Workspace Four',
-        thumbnailUrl: '/images/demo-charts-preview-4.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 5,
-        name: 'Workspace Five',
-        thumbnailUrl: '/images/demo-charts-preview-5.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 6,
-        name: 'Workspace Siz',
-        thumbnailUrl: '/images/demo-charts-preview-6.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 7,
-        name: 'Workspace Seven',
-        thumbnailUrl: '/images/demo-charts-preview-7.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 8,
-        name: 'Workspace Eight',
-        thumbnailUrl: '/images/demo-charts-preview-8.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 9,
-        name: 'Workspace Nine',
-        thumbnailUrl: '/images/demo-charts-preview-9.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 10,
-        name: 'Workspace Ten',
-        thumbnailUrl: '/images/demo-charts-preview-10.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 11,
-        name: 'Workspace Eleven',
-        thumbnailUrl: '/images/demo-charts-preview-11.png',
-        charts: ChartMetaMocks,
-    },
-    {
-        id: 12,
-        name: 'Workspace Twelve',
-        thumbnailUrl: '/images/demo-charts-preview-12.png',
-        charts: ChartMetaMocks,
-    }
+    new Workspace(1, 'Workspace One', '/images/demo-charts-preview-1.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(2, 'Workspace Two', '/images/demo-charts-preview-2.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(3, 'Workspace Three', '/images/demo-charts-preview-3.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(4, 'Workspace Four', '/images/demo-charts-preview-4.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(5, 'Workspace Five', '/images/demo-charts-preview-5.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(6, 'Workspace Siz', '/images/demo-charts-preview-6.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(7, 'Workspace Seven', '/images/demo-charts-preview-7.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(8, 'Workspace Eight', '/images/demo-charts-preview-8.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(9, 'Workspace Nine', '/images/demo-charts-preview-9.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(10, 'Workspace Ten', '/images/demo-charts-preview-10.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(11, 'Workspace Eleven', '/images/demo-charts-preview-11.png', ChartMetas, LayoutsWithThreeItemsMock),
+    new Workspace(12, 'Workspace Twelve', '/images/demo-charts-preview-12.png', ChartMetas, LayoutsWithThreeItemsMock),
 ];
