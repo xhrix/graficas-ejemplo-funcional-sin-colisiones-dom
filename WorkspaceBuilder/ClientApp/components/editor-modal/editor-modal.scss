@@ -41,11 +41,26 @@
       justify-content: center;
       align-items: center;
       .row-body-header-controls {
-        margin: 0 15px;
+        margin: 0 6px;
         min-width: 50px;
         min-height: 10px;
+        display: flex;
+        align-items: center;
         .row-body-header-back-button {
-          display: flex;
+          cursor: pointer;
+          transition: .2s ease-in-out;
+          width: 36px;
+          display: inline-flex;
+          height: 36px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          &:hover {
+            background: rgba(241, 241, 241, 0.06);
+          }
+          &:active {
+            background: rgba(241, 241, 241, 0.16);
+          }
         }
       }
       .row-body-header-title {
@@ -84,7 +99,7 @@
         border: none;
         border-radius: 0;
         width: 100%;
-        padding: 0 13px;
+        padding: 0 15px;
         margin: 0;
         height: 42px;
         background: #F1F1F1;
@@ -112,6 +127,10 @@
     padding: 6px 15px;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      background: rgb(245, 245, 245);
+    }
     .select-indicator {
       border: 1px solid $actionColor;
       width: 20px;

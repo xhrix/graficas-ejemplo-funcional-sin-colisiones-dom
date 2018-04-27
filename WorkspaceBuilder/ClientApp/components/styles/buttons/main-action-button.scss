@@ -11,6 +11,7 @@
   bottom: 44px;
   right: 36px;
   transition: .2s ease-in-out;
+  cursor: pointer;
   @include z-depth-4dp();
   &:after {
     content: '';
