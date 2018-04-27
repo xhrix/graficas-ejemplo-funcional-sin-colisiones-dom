@@ -171,9 +171,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                     </ResponsiveReactGridLayout>
                 ) : (
                     <div className={styles.emptyWorkspace}>
-                        <p>
-                            Puedes agregar gráficas dando click en "+".
-                        </p>
+                        Puedes agregar gráficas dando click en "+".
                     </div>
                 )}
 

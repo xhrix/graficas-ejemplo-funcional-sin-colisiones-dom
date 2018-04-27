@@ -2,8 +2,6 @@
 
 .container {
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .grid-item {
@@ -93,14 +91,14 @@ $avatar-offset: 52+16;
 }
 
 .empty-workspace {
-  height: 100%;
-  padding: 30px;
-  padding-bottom: 110px;
   text-align: center;
   color: #bfbcbc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-weight: lighter;
   font-size: 1.5em;
+  position: absolute;
+  bottom: 50%;
+  left: 40px;
+  right: 40px;
+  display: inline-block;
+  user-select: none;
 }
