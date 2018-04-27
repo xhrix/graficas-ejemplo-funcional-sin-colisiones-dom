@@ -28,15 +28,19 @@ export default class EditorModal extends React.Component<EditorModalProps> {
 
     private onCategoryClick = (category: WorkspaceCategory) => {
         this.props.onCategoryClick(category);
-        if (this.carrets) {
-            $(this.carrets).stop().animate({scrollLeft: this.carrets.offsetWidth}, 120, 'swing');
-        }
+        setTimeout(() => {
+            if (this.carrets) {
+                $(this.carrets).stop().animate({scrollLeft: this.carrets.offsetWidth}, 120, 'swing');
+            }
+        }, 1);
     };
 
     private onBackToCategoriesClick = () => {
-        if (this.carrets) {
-            $(this.carrets).stop().animate({scrollLeft: 0}, 120, 'swing');
-        }
+        setTimeout(() => {
+            if (this.carrets) {
+                $(this.carrets).stop().animate({scrollLeft: 0}, 120, 'swing');
+            }
+        }, 1);
     };
 
     private graphics() {
