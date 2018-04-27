@@ -77,19 +77,22 @@
       .context-back-arrow {
         position: absolute;
         z-index: 10;
-        bottom: 104px;
-        right: 14px;
+        bottom: 115px;
+        right: 15px;
         background: #656565;
         color: white;
         border-radius: 50%;
-        width: 48px;
-        height: 48px;
+        width: 56px;
+        height: 56px;
         display: flex;
         justify-content: center;
         align-items: center;
         @include z-depth-4dp();
         @media only screen and (min-width: 600px) {
           display: none;
+        }
+        i {
+          font-size: 29px;
         }
       }
     }
