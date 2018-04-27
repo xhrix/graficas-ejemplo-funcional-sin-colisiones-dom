@@ -4,24 +4,25 @@
   background: #fb6522;
   border: none;
   border-radius: 50%;
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   position: fixed;
   z-index: 500;
-  bottom: 44px;
-  right: 36px;
+  bottom: 15px;
+  right: 15px;
   transition: .2s ease-in-out;
   cursor: pointer;
   @include z-depth-4dp();
   &:after {
     content: '';
-    left: 24px;
+    left: 16px;
     width: 25px;
     height: 4px;
+    border-radius: 4px;
     background: white;
     display: block;
     position: absolute;
-    top: 33px;
+    top: 26px;
     transition: .2s ease-in-out 0s, transform .2s cubic-bezier(0.71, -0.44, 0.28, 1.46);
     transform: rotate(0deg);
   }
