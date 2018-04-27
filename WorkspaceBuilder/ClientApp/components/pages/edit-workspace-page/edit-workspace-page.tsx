@@ -27,8 +27,7 @@ interface EditWorkspacePageProps {
 
 interface EditWorkspacePageState {
     availableCharts: ChartMeta[];
-    selectedCharts: ChartMeta[];
-    layouts: Layouts;
+    workspace: Workspace;
     breakpoint: Breakpoints;
 }
 
@@ -43,9 +42,6 @@ const fancyCssClasses: CSSTransitionClassNames = {
 
 @observer
 export default class EditWorkspacePage extends React.Component<EditWorkspacePageProps, EditWorkspacePageState> {
-
-    @observable
-    private workspace?: Workspace;
 
     @observable
     private workspaceCategories: WorkspaceCategory[] = [];
@@ -70,17 +66,16 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
         super(props);
         this.state = {
             availableCharts: [],
-            selectedCharts: [],
-            layouts: emptyNormalizedLayouts(), // Start with empty layouts.
+            workspace: new Workspace(0, '', '', [], emptyNormalizedLayouts()), // Start with empty layouts.
             breakpoint: 'lg', // Any default starting breakpoint, it will be properly updated at render-time.
         };
     }
 
     async componentDidMount() {
         this.setState({
-            availableCharts: await ChartService.getAvailableCharts()
+            availableCharts: await ChartService.getAvailableCharts(),
+            workspace: await WorkspaceService.getByIdOrEmpty(this.props.workspaceId),
         });
-        this.workspace = await WorkspaceService.getById(this.props.workspaceId);
         this.workspaceCategories = await WorkspaceCategoryService.getAll();
     }
 
@@ -89,7 +84,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
     };
 
     private isSelected = (value: ChartMeta) => {
-        return !!(this.state.selectedCharts.find(x => value.chartGUID === x.chartGUID));
+        return !!(this.state.workspace.charts.find(x => value.chartGUID === x.chartGUID));
     };
 
     private toggleSelection = (value: ChartMeta) => {
@@ -98,25 +93,28 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
             this.removeGridItemByChartMetaOnly(value);
         } else {
             // Add
-            const newLayout = {i: "grid-item-" + uuid(), x: 0, y: 0, w: 3, h: 10} as Layout;
+            const itemKey = "grid-item-" + uuid(); // We want the same key ("i" attribute in Layout) for every breakpoint.
+            const newLayout = () => ({i: itemKey, x: 0, y: 0, w: 3, h: 10} as Layout);
             this.setState({
-                selectedCharts: this.state.selectedCharts.concat([value]),
-                layouts: appendLayout(this.state.layouts, () => newLayout),
+                workspace: Object.assign({}, this.state.workspace, ({
+                    layouts: appendLayout(this.state.workspace.layouts, newLayout),
+                    charts: this.state.workspace.charts.concat([value])
+                } as Workspace)),
             });
         }
     };
 
     private removeGridItemByChartMetaOnly = (chartMeta: ChartMeta) => {
-        const indexInSelectedCharts = this.state.selectedCharts.findIndex(x => x.chartGUID === chartMeta.chartGUID);
-        const layout = this.state.layouts.xs ? this.state.layouts.xs[indexInSelectedCharts] : null;
+        const indexInSelectedCharts = this.state.workspace.charts.findIndex(x => x.chartGUID === chartMeta.chartGUID);
+        const layout = this.state.workspace.layouts.xs ? this.state.workspace.layouts.xs[indexInSelectedCharts] : null;
         if (!layout) throw new Error(`Charts and Layouts don't match anymore.`);
-        const layouts = removeLayoutByKey(this.state.layouts, layout.i || '');
-        const selectedCharts = this.state.selectedCharts.filter(x => x.chartGUID !== chartMeta.chartGUID);
-        this.setState({selectedCharts, layouts});
+        const layouts = removeLayoutByKey(this.state.workspace.layouts, layout.i || '');
+        const charts = this.state.workspace.charts.filter(x => x.chartGUID !== chartMeta.chartGUID);
+        this.setState({workspace: Object.assign({}, this.state.workspace, ({layouts, charts} as Workspace))});
     };
 
     private onLayoutChange = (layout: Layout, layouts: Layouts) => {
-        this.setState({layouts});
+        this.setState({workspace: Object.assign({}, this.state.workspace, ({layouts} as Workspace))});
         // saveToLS("layouts", layouts);
     };
 
@@ -125,7 +123,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
     };
 
     private gridItem = (layout: Layout, index: number) => {
-        const chartMeta = this.state.selectedCharts.length > index ? this.state.selectedCharts[index] : null;
+        const chartMeta = this.state.workspace.charts.length > index ? this.state.workspace.charts[index] : null;
 
         if (!chartMeta) {
             throw new Error(`Charts and Layouts don't match anymore.`);
@@ -137,7 +135,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
     };
 
     render() {
-        const layouts: Layout[] = (this.state.layouts as any)[this.state.breakpoint] ? (this.state.layouts as any)[this.state.breakpoint] : [];
+        const layouts: Layout[] = (this.state.workspace.layouts as any)[this.state.breakpoint] ? (this.state.workspace.layouts as any)[this.state.breakpoint] : [];
 
         return (
             <div className={styles.container}>
@@ -166,7 +164,7 @@ export default class EditWorkspacePage extends React.Component<EditWorkspacePage
                         onLayoutChange={this.onLayoutChange}
                         rowHeight={30}
                         cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
-                        layouts={this.state.layouts}
+                        layouts={this.state.workspace.layouts}
                         onBreakpointChange={this.onBreakpointChange}
                     >
                         {layouts.map((layout, i) => this.gridItem(layout, i))}
