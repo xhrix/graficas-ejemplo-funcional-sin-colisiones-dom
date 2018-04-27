@@ -94,16 +94,10 @@ export default class EditorModal extends React.Component<EditorModalProps> {
 
         return (
             <div>
-                {/*{shown ? <div className={styles.fade} onClick={() => onCloseClick()}/> : null}*/}
+                <div className={styles.fade} onClick={() => onCloseClick()}/>
+                <span className={styles.triangle}/>
                 <div className={styles.container}>
-
-                    {/*Row 1: Context arrow*/}
-                    <div className={`${styles.rowContextArrow}`}>
-                        <span className={`${`styles.triangle`}`}/>
-                    </div>
-
-
-                    {/*Row 2: Body*/}
+                    {/*Row 1: Body*/}
                     <div ref={x => this.carrets = x} className={`${`styles.carets`} ${styles.rowBody}`}>
 
                         {/*First caret*/}

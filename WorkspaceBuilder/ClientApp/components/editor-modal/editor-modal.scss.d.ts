@@ -1,7 +1,6 @@
 // Auto-generated code. Don't modify.
 
 export const container: string;
-export const rowContextArrow: string;
 export const rowBody: string;
 export const caret: string;
 export const rowBodyHeader: string;
@@ -23,3 +22,4 @@ export const fancyEnter: string;
 export const fancyEnterActive: string;
 export const fancyExit: string;
 export const fancyExitActive: string;
+export const triangle: string;
