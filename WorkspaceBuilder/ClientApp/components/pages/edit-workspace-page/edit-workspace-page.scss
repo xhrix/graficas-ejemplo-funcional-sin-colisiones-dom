@@ -1,3 +1,5 @@
+@import '../../styles/base/include';
+
 .container {
   height: 100%;
   display: flex;
@@ -6,7 +8,9 @@
 
 .grid-item {
   background: white;
-  box-shadow: -1px -1px 2px 1px rgba(103, 103, 103, 0.46);
+  @include z-depth-2dp;
+
+  overflow: hidden;
   .fullHandle {
     background-color: rgba(255, 255, 255, 0.01);
     border: none;
