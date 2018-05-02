@@ -13,6 +13,9 @@ namespace WorkspaceBuilder.EntityConfigurations
                 .HasMaxLength(256);
 
             builder.HasIndex(m => m.Name).IsUnique();
+
+            builder.Property(m => m.Data)
+                .IsRequired();
         }
     }
 }
