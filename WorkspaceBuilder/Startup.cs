@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using WorkspaceBuilder.Data;
 using WorkspaceBuilder.Models;
 using WorkspaceBuilder.Services;
+using WorkspaceBuilder.Core;
+using WorkspaceBuilder.Persistence;
 
 namespace WorkspaceBuilder
 {
@@ -27,6 +25,9 @@ namespace WorkspaceBuilder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

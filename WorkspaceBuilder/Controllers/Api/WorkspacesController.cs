@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WorkspaceBuilder.Data;
 using WorkspaceBuilder.Models;
+using WorkspaceBuilder.Core;
 
 namespace WorkspaceBuilder.Controllers.Api
 {
@@ -14,19 +11,18 @@ namespace WorkspaceBuilder.Controllers.Api
     [Route("api/Workspaces")]
     public class WorkspacesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IWorkspaceRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public WorkspacesController(ApplicationDbContext context)
+        public WorkspacesController(IWorkspaceRepository repository, IUnitOfWork unitOfWork)
         {
-            _context = context;
+            this.unitOfWork = unitOfWork;
+            this.repository = repository;
         }
 
         // GET: api/Workspaces
         [HttpGet]
-        public IEnumerable<Workspace> GetWorkspace()
-        {
-            return _context.Workspace;
-        }
+        public IEnumerable<Workspace> GetWorkspace() => repository.GetWorkspaces();
 
         // GET: api/Workspaces/5
         [HttpGet("{id}")]
@@ -37,7 +33,7 @@ namespace WorkspaceBuilder.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            var workspace = await _context.Workspace.SingleOrDefaultAsync(m => m.Id == id);
+            var workspace = await repository.GetWorkspace(id);
 
             if (workspace == null)
             {
@@ -49,37 +45,23 @@ namespace WorkspaceBuilder.Controllers.Api
 
         // PUT: api/Workspaces/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorkspace([FromRoute] int id, [FromBody] Workspace workspace)
+        public async Task<IActionResult> PutWorkspace([FromRoute] int id, [FromBody] Workspace workspaceModified)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != workspace.Id)
-            {
-                return BadRequest();
-            }
+            var workspace = await repository.GetWorkspace(id);
 
-            _context.Entry(workspace).State = EntityState.Modified;
+            if( workspace == null ) return NotFound();
+            workspace.Name = workspaceModified.Name;
+            workspace.Data = workspaceModified.Data;
+            workspace.LastUpdate = DateTime.Now;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!WorkspaceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await unitOfWork.CompleteAsync();
+            workspace = await repository.GetWorkspace(workspace.Id);
+            return Ok(workspace);
         }
 
         // POST: api/Workspaces
@@ -91,9 +73,10 @@ namespace WorkspaceBuilder.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            _context.Workspace.Add(workspace);
-            await _context.SaveChangesAsync();
-
+            workspace.LastUpdate = DateTime.Now;
+            repository.Add(workspace);
+            await unitOfWork.CompleteAsync();
+            workspace = await repository.GetWorkspace(workspace.Id);
             return CreatedAtAction("GetWorkspace", new { id = workspace.Id }, workspace);
         }
 
@@ -106,21 +89,16 @@ namespace WorkspaceBuilder.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            var workspace = await _context.Workspace.SingleOrDefaultAsync(m => m.Id == id);
+            var workspace = await repository.GetWorkspace(id);
             if (workspace == null)
             {
                 return NotFound();
             }
 
-            _context.Workspace.Remove(workspace);
-            await _context.SaveChangesAsync();
+            repository.Remove(workspace);
+            await unitOfWork.CompleteAsync();
 
             return Ok(workspace);
-        }
-
-        private bool WorkspaceExists(int id)
-        {
-            return _context.Workspace.Any(e => e.Id == id);
         }
     }
 }
